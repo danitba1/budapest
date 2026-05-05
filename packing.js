@@ -138,7 +138,7 @@
     var hint = el("p", "muted");
     hint.style.marginTop = "0.5rem";
     hint.textContent =
-      "ודאו שהשרת רץ (npm start בתיקיית server), ש-DATABASE_URL ב-.env נכון, ושאתם נכנסים לאתר דרך אותו כתובת (למשל http://localhost:3000/packing.html).";
+      "ודאו שהשרת רץ (npm start), ש-DATABASE_URL נכון, ושאתם נכנסים דרך אותה כתובת (localhost או פריסת Vercel עם משתני סביבה). בדף 404 עם file:// פתחו דרך http או https.";
     var retry = el("button", "pack-btn pack-btn--primary", { type: "button" });
     retry.textContent = "נסו שוב";
     retry.style.marginTop = "0.75rem";

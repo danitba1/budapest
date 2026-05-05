@@ -24,6 +24,12 @@
    - פקודת start: node index.js (מתוך server)
    - שרתו את ה-build סטטי או העתיקו את כל תיקיית budapest
 
+7) פריסה ל-Vercel (אתר סטטי + API ב־Serverless):
+   - ב-Vercel Project → Settings → Environment Variables: הגדירו DATABASE_URL (וגם PACK_API_TOKEN אם משתמשים באימות).
+   - פריסת Git משורש הפרויקט; vercel.json מפנה את כל /api/* ל־api/server.js (אותם נתיבי Express כמו ב-localhost).
+   - אחרי deploy: פתיחת https://<הדומיין>/api/health — אם מוחזר {"ok":true,"db":true} המסד מחובר.
+   - אין להעלות server/.env — רק משתני סביבה בממשק Vercel.
+
 הערה: אין לשתף את DATABASE_URL או את .env בגיט.
 
 === בעיות נפוצות ===
