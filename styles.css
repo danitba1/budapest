@@ -1,0 +1,1744 @@
+/* טיול משפחתי – בודפשט והסביבה */
+:root {
+  --bg: #fff8f0;
+  --card: #ffffff;
+  --accent1: #2a9d8f;
+  --accent2: #e76f51;
+  --accent3: #264653;
+  --accent-soft: #e9c46a;
+  --text: #1a1a2e;
+  --muted: #5c6470;
+  --shadow: 0 8px 24px rgba(38, 70, 83, 0.12);
+  --radius: 16px;
+  --font: "Heebo", system-ui, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.65;
+  font-size: 1.05rem;
+}
+
+/* רקע דקורטיבי */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 100% 0%, rgba(42, 157, 143, 0.12), transparent),
+    radial-gradient(ellipse 60% 40% at 0% 100%, rgba(231, 111, 81, 0.1), transparent);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.wrap {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 1.5rem clamp(1rem, 4vw, 2rem) 3rem;
+}
+
+/* ——— Hero ——— */
+.hero {
+  position: relative;
+  min-height: min(78vh, 640px);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  margin-bottom: 0;
+  overflow: hidden;
+  --hero-image: url("https://images.unsplash.com/photo-1541342423680-622c5b6f8200?auto=format&fit=crop&w=1920&q=80");
+}
+
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  background-image: var(--hero-image);
+  background-size: cover;
+  background-position: center 35%;
+  transform: scale(1.02);
+}
+
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    185deg,
+    rgba(13, 27, 42, 0.15) 0%,
+    rgba(13, 27, 42, 0.55) 45%,
+    rgba(26, 42, 58, 0.88) 100%
+  );
+}
+
+.hero__inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 3rem clamp(1.25rem, 4vw, 2.5rem) 2.75rem;
+  text-align: center;
+  color: #fff;
+}
+
+.hero__kicker {
+  margin: 0 0 0.65rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.88;
+  color: #fde68a;
+}
+
+.hero__title {
+  margin: 0 0 0.75rem;
+  font-size: clamp(1.65rem, 4.5vw, 2.45rem);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.35);
+}
+
+.hero__tagline {
+  margin: 0 auto 1.35rem;
+  max-width: 28em;
+  font-size: clamp(1rem, 2.5vw, 1.12rem);
+  font-weight: 500;
+  opacity: 0.94;
+  line-height: 1.5;
+}
+
+.hero__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 1.75rem;
+}
+
+.hero__badge {
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  backdrop-filter: blur(8px);
+}
+
+.hero__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 1rem;
+  text-decoration: none;
+  color: var(--accent3);
+  background: linear-gradient(145deg, #fff 0%, #f0fdfa 100%);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.25);
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hero__cta:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.3);
+}
+
+.hero__cta-icon {
+  font-size: 1.1rem;
+  animation: hero-bounce 2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__cta-icon {
+    animation: none;
+  }
+
+  .hero__cta:hover {
+    transform: none;
+  }
+}
+
+@keyframes hero-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(4px);
+  }
+}
+
+/* ניווט */
+.main-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  justify-content: center;
+  align-items: center;
+  margin: -1.25rem auto 2.25rem;
+  padding: 0.65rem 1rem;
+  max-width: fit-content;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 999px;
+  box-shadow: 0 8px 32px rgba(38, 70, 83, 0.12);
+  border: 1px solid rgba(42, 157, 143, 0.2);
+  backdrop-filter: blur(10px);
+  position: relative;
+  z-index: 2;
+}
+
+.main-nav__link {
+  display: inline-block;
+  padding: 0.55rem 1.25rem;
+  background: transparent;
+  color: var(--accent3);
+  text-decoration: none;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  transition: background 0.2s, color 0.2s;
+}
+
+.main-nav__link:hover {
+  background: rgba(42, 157, 143, 0.12);
+  color: var(--accent1);
+}
+
+.main-nav__link--current {
+  background: linear-gradient(135deg, var(--accent1), #21867a);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(42, 157, 143, 0.35);
+}
+
+/* קטעים */
+section {
+  margin-bottom: 2.5rem;
+  scroll-margin-top: 6rem;
+}
+
+.section-heading,
+section > h2 {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: clamp(1.28rem, 3vw, 1.55rem);
+  color: var(--accent3);
+  margin: 0 0 0.65rem;
+  padding-bottom: 0;
+  border-bottom: none;
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+.section-heading::before,
+section > h2::before {
+  content: "";
+  width: 5px;
+  height: 1.55em;
+  border-radius: 6px;
+  flex-shrink: 0;
+  background: linear-gradient(180deg, var(--accent-soft), var(--accent1), var(--accent2));
+  box-shadow: 0 2px 8px rgba(231, 111, 81, 0.25);
+}
+
+.section-heading--on-card::before {
+  background: linear-gradient(180deg, var(--accent3), var(--accent1));
+}
+
+.section-lede {
+  margin: 0 0 1.25rem;
+  color: var(--muted);
+  font-size: 1.02rem;
+  max-width: 40em;
+  line-height: 1.55;
+}
+
+/* פס תמונות – יעדי מסלול */
+.route-mosaic {
+  margin-bottom: 2.75rem;
+}
+
+.route-mosaic__heading {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--accent3);
+  margin: 0 0 1rem;
+  text-align: center;
+  letter-spacing: 0.04em;
+}
+
+section.route-mosaic > .route-mosaic__heading::before {
+  display: none;
+}
+
+.route-mosaic__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .route-mosaic__grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.1rem;
+  }
+}
+
+.route-tile {
+  position: relative;
+  margin: 0;
+  border-radius: 20px;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  box-shadow: 0 12px 40px rgba(38, 70, 83, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .route-tile:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 48px rgba(38, 70, 83, 0.22);
+  }
+}
+
+.route-tile__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.45s ease;
+}
+
+.route-tile:hover .route-tile__img {
+  transform: scale(1.06);
+}
+
+.route-tile__cap {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  margin: 0;
+  padding: 1.1rem 1.15rem 1rem;
+  background: linear-gradient(transparent, rgba(15, 23, 42, 0.88));
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  text-align: right;
+}
+
+.route-tile__label {
+  font-weight: 800;
+  font-size: 1.1rem;
+  letter-spacing: -0.02em;
+}
+
+.route-tile__sub {
+  font-size: 0.86rem;
+  opacity: 0.92;
+  font-weight: 500;
+}
+
+.route-mosaic__credit {
+  margin: 0.85rem 0 0;
+  text-align: center;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.route-mosaic__credit a {
+  color: var(--accent1);
+  font-weight: 600;
+}
+
+/* דגשים – פיצול תמונה + תיבה */
+.prep-split {
+  display: grid;
+  gap: 1.25rem;
+  align-items: stretch;
+}
+
+@media (min-width: 768px) {
+  .prep-split {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+    gap: 1.5rem;
+  }
+}
+
+.prep-split__media {
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  min-height: 220px;
+  border: 1px solid rgba(42, 157, 143, 0.15);
+}
+
+.prep-split__img {
+  width: 100%;
+  height: 100%;
+  min-height: 220px;
+  object-fit: cover;
+  display: block;
+}
+
+.prep-split__box {
+  margin: 0;
+  height: 100%;
+}
+
+.plan-section .table-legend {
+  margin-top: 0.35rem;
+}
+
+.intro-box {
+  background: linear-gradient(120deg, #fef3c7 0%, #fde68a 30%, transparent);
+  border: 2px solid var(--accent-soft);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  box-shadow: var(--shadow);
+}
+
+.intro-box h3 {
+  margin: 0 0 0.75rem;
+  color: var(--accent2);
+  font-size: 1.1rem;
+}
+
+.prep-split__box > h3:first-child {
+  margin-top: 0;
+}
+
+.intro-box ul {
+  margin: 0;
+  padding-right: 1.25rem;
+}
+
+.intro-box li {
+  margin-bottom: 0.5rem;
+}
+
+.intro-box li:last-child {
+  margin-bottom: 0;
+}
+
+/* כרטיס יום */
+.day-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(42, 157, 143, 0.2);
+}
+
+.day-card:nth-child(even) .day-head-row {
+  background: linear-gradient(90deg, var(--accent1), #21867a);
+}
+
+.day-card:nth-child(odd) .day-head-row {
+  background: linear-gradient(90deg, var(--accent2), #d65a3e);
+}
+
+.day-head-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  padding: 0.85rem 1.25rem;
+  color: #fff;
+}
+
+.day-head {
+  margin: 0;
+  padding: 0;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: inherit;
+  flex: 1;
+  min-width: min(100%, 12rem);
+}
+
+.day-head-link {
+  display: inline-block;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: #fff;
+  text-decoration: none;
+  border: 2px solid rgba(255, 255, 255, 0.55);
+  white-space: nowrap;
+}
+
+.day-head-link:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: #fff;
+}
+
+/* עמוד יום בטיול */
+.trip-day-root {
+  margin-bottom: 2rem;
+}
+
+.trip-day-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.trip-day-controls__label {
+  font-weight: 700;
+  color: var(--accent3);
+}
+
+.trip-day-select {
+  font: inherit;
+  padding: 0.45rem 0.75rem;
+  border-radius: 10px;
+  border: 1px solid rgba(42, 157, 143, 0.35);
+  min-width: 12rem;
+}
+
+.trip-day-lede {
+  margin-top: 0;
+}
+
+.trip-extra-section {
+  margin: 2rem 0;
+}
+
+.trip-extra-list {
+  margin: 0;
+  padding-inline-start: 1.25rem;
+  line-height: 1.65;
+  font-size: 0.98rem;
+}
+
+.trip-extra-list li {
+  margin-bottom: 0.5rem;
+}
+
+.trip-extra-prose {
+  margin: 0;
+  line-height: 1.65;
+  font-size: 0.98rem;
+}
+
+.trip-nav-time-body .trip-extra-prose + .trip-extra-prose {
+  margin-top: 0.65rem;
+}
+
+.day-card-nav-time {
+  margin-top: 1rem;
+  margin-bottom: 0.15rem;
+}
+
+.day-card-nav-time .section-heading {
+  font-size: clamp(1.05rem, 2.4vw, 1.28rem);
+  margin-bottom: 0.45rem;
+}
+
+.day-card-nav-time__body {
+  font-size: 0.95rem;
+}
+
+.trip-meals-section {
+  margin: 2.25rem 0 1rem;
+}
+
+.trip-meals-lede {
+  margin-top: 0.25rem;
+  font-size: 0.92rem;
+}
+
+.trip-meals-form {
+  margin-top: 0.75rem;
+}
+
+.trip-meals-label {
+  display: block;
+  font-weight: 700;
+  margin-top: 0.75rem;
+  margin-bottom: 0.35rem;
+  color: var(--accent3);
+}
+
+.trip-meals-textarea {
+  width: 100%;
+  font: inherit;
+  padding: 0.55rem 0.65rem;
+  border-radius: 10px;
+  border: 1px solid rgba(38, 70, 83, 0.2);
+  resize: vertical;
+  min-height: 5rem;
+  box-sizing: border-box;
+}
+
+.trip-meals-status {
+  margin: 0.75rem 0 0;
+  min-height: 1.5em;
+}
+
+.trip-meals-actions {
+  margin-top: 0.75rem;
+}
+
+.trip-day-pager {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  margin-top: 2rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(42, 157, 143, 0.2);
+}
+
+.trip-day-pager__link {
+  font-weight: 800;
+  color: var(--accent1);
+  text-decoration: none;
+}
+
+.trip-day-pager__link:hover {
+  text-decoration: underline;
+  color: var(--accent2);
+}
+
+.day-table-wrap {
+  overflow-x: auto;
+  padding: 0.25rem;
+}
+
+.table-legend {
+  margin: -0.25rem 0 1.25rem;
+  padding: 0.75rem 1rem;
+  background: #eef6ff;
+  border-radius: 12px;
+  font-size: 0.92rem;
+  border: 1px solid rgba(42, 157, 143, 0.25);
+}
+
+.table-legend strong {
+  color: var(--accent3);
+}
+
+.day-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.day-table th,
+.day-table td {
+  padding: 0.75rem 1rem;
+  text-align: right;
+  vertical-align: top;
+  border-bottom: 1px solid #eee;
+}
+
+.day-table thead th {
+  background: var(--accent3);
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.88rem;
+  letter-spacing: 0.02em;
+  border-bottom: 2px solid var(--accent1);
+  white-space: nowrap;
+}
+
+.day-table th[scope="row"] {
+  background: #f0faf8;
+  color: var(--accent3);
+  font-weight: 700;
+  width: 12%;
+  min-width: 5rem;
+  white-space: nowrap;
+}
+
+.day-table .col-links {
+  width: 22%;
+  min-width: 7rem;
+}
+
+.day-table .col-waze {
+  width: 12%;
+  min-width: 6.25rem;
+  white-space: nowrap;
+  font-size: 0.88rem;
+}
+
+.day-table .col-waze a {
+  font-weight: 700;
+}
+
+.ticket-cell {
+  width: 20%;
+  min-width: 5.5rem;
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
+.ticket {
+  display: inline-block;
+  padding: 0.25rem 0.55rem;
+  border-radius: 8px;
+  font-weight: 700;
+}
+
+.ticket-must {
+  background: #fde8e4;
+  color: #9b2335;
+  border: 1px solid #f4b7a8;
+}
+
+.ticket-rec {
+  background: #e8f5f3;
+  color: #1a6b5e;
+  border: 1px solid #9fd4cb;
+}
+
+.ticket-no,
+.ticket-na {
+  background: #f3f4f6;
+  color: var(--muted);
+  font-weight: 600;
+  border: 1px solid #e5e7eb;
+}
+
+.day-table tr:last-child th,
+.day-table tr:last-child td {
+  border-bottom: none;
+}
+
+.day-table a {
+  color: var(--accent1);
+  font-weight: 600;
+  text-decoration: none;
+  word-break: break-word;
+}
+
+.day-table a:hover {
+  text-decoration: underline;
+  color: var(--accent2);
+}
+
+.muted {
+  color: var(--muted);
+  font-size: 0.9em;
+}
+
+/* משימות */
+.tasks-intro {
+  margin: 0 0 1rem;
+  max-width: 52rem;
+  line-height: 1.5;
+}
+
+.tasks-box {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  border-right: 5px solid var(--accent1);
+}
+
+.tasks-subheading {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--accent1);
+  margin: 1.25rem 0 0.5rem;
+}
+
+.tasks-subheading:first-child {
+  margin-top: 0;
+}
+
+.tasks-list {
+  list-style: none;
+  margin: 0 0 0.5rem;
+  padding: 0;
+}
+
+.tasks-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  margin-bottom: 0.35rem;
+  padding: 0.45rem 0;
+  border-bottom: 1px solid rgba(38, 70, 83, 0.08);
+}
+
+.tasks-item:last-child {
+  border-bottom: none;
+}
+
+.tasks-item--done .tasks-item__body {
+  opacity: 0.68;
+  text-decoration: line-through;
+}
+
+.tasks-item__cb {
+  width: 1.15rem;
+  height: 1.15rem;
+  margin-top: 0.25rem;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.tasks-item__body {
+  flex: 1;
+  min-width: 0;
+  line-height: 1.5;
+}
+
+.tasks-item__links {
+  display: block;
+  margin-top: 0.35rem;
+}
+
+.tasks-item__waze {
+  margin-top: 0.4rem;
+}
+
+.tasks-item__waze a {
+  font-weight: 700;
+  color: var(--accent1);
+  text-decoration: none;
+}
+
+.tasks-item__waze a:hover {
+  text-decoration: underline;
+}
+
+.tasks-item__links a {
+  margin-inline-start: 0.25rem;
+}
+
+.tasks-item__del {
+  flex-shrink: 0;
+  font-size: 0.82rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  border: 1px solid rgba(38, 70, 83, 0.22);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.tasks-item__del:hover {
+  border-color: #b91c1c;
+  color: #b91c1c;
+}
+
+.tasks-empty {
+  padding: 0.35rem 0;
+  list-style: none;
+}
+
+.tasks-add-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(38, 70, 83, 0.12);
+  align-items: center;
+}
+
+.tasks-add-input {
+  flex: 1;
+  min-width: 12rem;
+  padding: 0.5rem 0.65rem;
+  border-radius: var(--radius);
+  border: 1px solid rgba(38, 70, 83, 0.25);
+  font: inherit;
+}
+
+.tasks-add-btn {
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
+  border: none;
+  background: var(--accent1);
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.tasks-add-btn:hover {
+  filter: brightness(1.05);
+}
+
+.tasks-restore-hidden {
+  display: block;
+  margin-top: 0.85rem;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--accent2);
+  font: inherit;
+  font-size: 0.88rem;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.tasks-restore-hidden:hover {
+  color: var(--accent1);
+}
+
+.tasks-box li strong {
+  color: var(--accent3);
+}
+
+/* עמודים עתידיים */
+.future-pages {
+  background: linear-gradient(180deg, #e0f2f1 0%, var(--card) 100%);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+}
+
+.future-pages ul {
+  margin: 0.5rem 0 0;
+  padding-right: 1.25rem;
+  columns: 1;
+}
+
+@media (min-width: 600px) {
+  .future-pages ul {
+    columns: 2;
+    column-gap: 2rem;
+  }
+}
+
+.future-pages li {
+  margin-bottom: 0.5rem;
+  break-inside: avoid;
+}
+
+.site-footer {
+  text-align: center;
+  margin-top: 3rem;
+  padding: 2rem 1rem;
+  border-top: 1px solid rgba(38, 70, 83, 0.1);
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.site-footer__top {
+  display: inline-block;
+  margin-bottom: 0.65rem;
+  font-weight: 700;
+  color: var(--accent1);
+  text-decoration: none;
+  font-size: 0.92rem;
+}
+
+.site-footer__top:hover {
+  color: var(--accent2);
+  text-decoration: underline;
+}
+
+.site-footer__line {
+  margin: 0;
+}
+
+.closing {
+  text-align: center;
+  font-weight: 700;
+  color: var(--accent1);
+  font-size: 1.1rem;
+  margin-top: 1rem;
+}
+
+/* ——— עמוד משנה (כשרות) ——— */
+.hero--compact {
+  min-height: min(42vh, 380px);
+  align-items: center;
+}
+
+.hero--compact .hero__inner {
+  padding: 2.25rem clamp(1rem, 4vw, 2rem) 2.25rem;
+}
+
+.hero__cta--ghost {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  border: 2px solid rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(6px);
+}
+
+.hero__cta--ghost:hover {
+  background: rgba(255, 255, 255, 0.22);
+  color: #fff;
+}
+
+.page-lede {
+  margin: 0 0 2rem;
+  padding: 1.15rem 1.35rem;
+  background: linear-gradient(120deg, #ecfdf5 0%, #fff 55%);
+  border-radius: var(--radius);
+  border: 1px solid rgba(42, 157, 143, 0.22);
+  font-size: 1.02rem;
+  line-height: 1.65;
+  color: var(--text);
+  box-shadow: 0 4px 16px rgba(38, 70, 83, 0.06);
+}
+
+.kosher-section {
+  margin-bottom: 2.25rem;
+}
+
+.kosher-section .section-heading {
+  margin-bottom: 1.1rem;
+}
+
+.kosher-card {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 1.15rem;
+  padding: 1.15rem 1.2rem;
+  margin-bottom: 1.1rem;
+  background: var(--card);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(42, 157, 143, 0.15);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.kosher-card:hover {
+  border-color: rgba(42, 157, 143, 0.35);
+  box-shadow: 0 12px 36px rgba(38, 70, 83, 0.12);
+}
+
+.kosher-card__media {
+  flex-shrink: 0;
+  width: 112px;
+  height: 112px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 2px solid rgba(233, 196, 106, 0.5);
+  align-self: flex-start;
+}
+
+@media (min-width: 480px) {
+  .kosher-card__media {
+    width: 128px;
+    height: 128px;
+  }
+}
+
+.kosher-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.kosher-card__body {
+  flex: 1;
+  min-width: 0;
+}
+
+.kosher-card__head {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.35rem;
+  margin-bottom: 0.6rem;
+}
+
+.kosher-card__title-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+}
+
+.kosher-card__walk {
+  display: inline-block;
+  padding: 0.22rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  background: rgba(42, 157, 143, 0.2);
+  color: var(--accent3);
+  border: 1px solid rgba(42, 157, 143, 0.35);
+  white-space: nowrap;
+}
+
+.kosher-card__subcard {
+  margin-top: 0.15rem;
+  padding: 0.65rem 0.75rem;
+  border-radius: 12px;
+  background: linear-gradient(120deg, rgba(42, 157, 143, 0.08), rgba(233, 196, 106, 0.1));
+  border: 1px solid rgba(42, 157, 143, 0.2);
+}
+
+.kosher-card__meters,
+.kosher-card__parking {
+  margin: 0;
+  font-size: 0.84rem;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+.kosher-card__meters {
+  margin-bottom: 0.45rem;
+  font-weight: 600;
+}
+
+.kosher-card__meters a {
+  color: var(--accent3);
+  text-decoration: underline;
+  text-underline-offset: 0.12em;
+}
+
+.kosher-card__meters a:hover {
+  text-decoration-thickness: 2px;
+}
+
+.kosher-card__parking {
+  opacity: 0.95;
+}
+
+.kosher-card__title {
+  margin: 0;
+  font-size: 1.12rem;
+  font-weight: 800;
+  color: var(--accent3);
+  line-height: 1.25;
+}
+
+.kosher-badge {
+  display: inline-block;
+  padding: 0.2rem 0.55rem;
+  border-radius: 8px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+}
+
+.kosher-badge--store {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.kosher-badge--meat {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.kosher-badge--dairy {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.kosher-badge--info {
+  background: #e0e7ff;
+  color: #3730a3;
+}
+
+/* בתי כנסת — תגי זרם (דף synagogues-budapest.html) */
+.kosher-badge--neolog {
+  background: #dbeafe;
+  color: #1e3a8a;
+}
+
+.kosher-badge--orthodox {
+  background: #fef3c7;
+  color: #78350f;
+}
+
+.kosher-badge--statusquo {
+  background: #ede9fe;
+  color: #5b21b6;
+}
+
+.kosher-card__food,
+.kosher-card__meta {
+  margin: 0 0 0.45rem;
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.kosher-card__link {
+  display: inline-block;
+  margin-top: 0.35rem;
+  font-weight: 700;
+  color: var(--accent1);
+  text-decoration: none;
+}
+
+.kosher-card__link:hover {
+  color: var(--accent2);
+  text-decoration: underline;
+}
+
+.kosher-footnote {
+  margin: 2rem 0 0;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  text-align: center;
+  max-width: 40em;
+  margin-inline: auto;
+}
+
+/* ——— תפריט המבורגר + מגירת צד (נייד) ——— */
+.menu-toggle {
+  display: none;
+  position: fixed;
+  z-index: 400;
+  top: max(0.65rem, env(safe-area-inset-top));
+  inset-inline-end: max(0.65rem, env(safe-area-inset-end));
+  width: 3rem;
+  height: 3rem;
+  padding: 0;
+  border: none;
+  border-radius: 14px;
+  background: rgba(38, 70, 83, 0.58);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.2);
+  touch-action: manipulation;
+}
+
+.menu-toggle:focus-visible {
+  outline: 3px solid var(--accent-soft);
+  outline-offset: 2px;
+}
+
+.menu-toggle__bars,
+.menu-toggle__bars::before,
+.menu-toggle__bars::after {
+  display: block;
+  width: 1.35rem;
+  height: 2.5px;
+  border-radius: 2px;
+  background: #fff;
+  transition: transform 0.25s ease, opacity 0.2s ease;
+}
+
+.menu-toggle__bars {
+  position: relative;
+  margin: 0 auto;
+}
+
+.menu-toggle__bars::before,
+.menu-toggle__bars::after {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+}
+
+.menu-toggle__bars::before {
+  top: -7px;
+}
+
+.menu-toggle__bars::after {
+  top: 7px;
+}
+
+.menu-toggle--open .menu-toggle__bars {
+  background: transparent;
+}
+
+.menu-toggle--open .menu-toggle__bars::before {
+  top: 0;
+  transform: rotate(45deg);
+}
+
+.menu-toggle--open .menu-toggle__bars::after {
+  top: 0;
+  transform: rotate(-45deg);
+}
+
+.site-drawer-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 370;
+  background: rgba(15, 23, 42, 0.48);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.28s ease, visibility 0.28s;
+  touch-action: manipulation;
+}
+
+.site-drawer-overlay.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.site-drawer {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  inset-inline-end: 0;
+  width: min(88vw, 304px);
+  max-width: 100%;
+  z-index: 380;
+  background: linear-gradient(195deg, #fffefb 0%, #f1f5f9 55%, #e8f4f2 100%);
+  box-shadow: -12px 0 48px rgba(0, 0, 0, 0.22);
+  transform: translateX(105%);
+  visibility: hidden;
+  transition: transform 0.34s cubic-bezier(0.32, 0.72, 0, 1), visibility 0.34s;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  padding: max(0.5rem, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-end)) 1.75rem
+    max(1rem, env(safe-area-inset-start));
+  border-inline-start: 1px solid rgba(42, 157, 143, 0.2);
+}
+
+.site-drawer.is-open {
+  transform: translateX(0);
+  visibility: visible;
+}
+
+.site-drawer__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.65rem 0 1rem;
+  margin-bottom: 0.35rem;
+  border-bottom: 2px solid rgba(42, 157, 143, 0.2);
+}
+
+.site-drawer__title {
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: var(--accent3);
+}
+
+.site-drawer__close {
+  width: 2.75rem;
+  height: 2.75rem;
+  border: none;
+  border-radius: 12px;
+  background: rgba(38, 70, 83, 0.08);
+  color: var(--accent3);
+  font-size: 1.65rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: manipulation;
+  transition: background 0.2s;
+}
+
+.site-drawer__close:hover {
+  background: rgba(231, 111, 81, 0.15);
+}
+
+.site-drawer__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.site-drawer__list li {
+  margin: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.site-drawer__link {
+  display: block;
+  padding: 1rem 0.35rem;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--accent3);
+  text-decoration: none;
+  line-height: 1.35;
+  transition: background 0.15s, color 0.15s;
+}
+
+.site-drawer__link:hover,
+.site-drawer__link:focus-visible {
+  color: var(--accent1);
+  background: rgba(42, 157, 143, 0.08);
+  outline: none;
+}
+
+.site-drawer__link--current {
+  color: var(--accent1);
+  background: rgba(42, 157, 143, 0.12);
+  border-inline-end: 4px solid var(--accent2);
+  padding-inline-end: 0.5rem;
+}
+
+body.drawer-open {
+  overflow: hidden;
+}
+
+@media (max-width: 899px) {
+  .menu-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .main-nav {
+    display: none;
+  }
+
+  .hero__inner {
+    padding-top: max(3.25rem, env(safe-area-inset-top));
+  }
+
+  .hero--compact .hero__inner {
+    padding-top: max(2.75rem, env(safe-area-inset-top));
+  }
+}
+
+@media (min-width: 900px) {
+  .menu-toggle,
+  .site-drawer,
+  .site-drawer-overlay {
+    display: none !important;
+  }
+}
+
+/* ——— שיפורי נייד כלליים ——— */
+@media (max-width: 599px) {
+  .hero__title {
+    font-size: clamp(1.35rem, 6.5vw, 2rem);
+  }
+
+  .route-tile {
+    aspect-ratio: 16 / 11;
+  }
+
+  .day-table {
+    font-size: 0.86rem;
+  }
+
+  .day-table thead th {
+    white-space: normal;
+    font-size: 0.72rem;
+    line-height: 1.25;
+  }
+
+  .day-table th[scope="row"] {
+    font-size: 0.8rem;
+    min-width: 4.25rem;
+  }
+
+  .day-table-wrap {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .kosher-card {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: right;
+  }
+
+  .kosher-card__media {
+    width: 100%;
+    height: 180px;
+    max-width: none;
+    align-self: stretch;
+  }
+
+  .kosher-card__title-row {
+    justify-content: flex-start;
+  }
+
+  .tasks-box,
+  .future-pages {
+    padding: 1.15rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .day-table th,
+  .day-table td {
+    padding: 0.55rem 0.45rem;
+  }
+
+  .ticket-cell {
+    font-size: 0.78rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-drawer,
+  .site-drawer-overlay,
+  .menu-toggle__bars,
+  .menu-toggle__bars::before,
+  .menu-toggle__bars::after {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ——— רשימת אריזה (packing.html) ——— */
+.pack-root {
+  margin-bottom: 2rem;
+}
+
+.pack-lede {
+  margin-bottom: 1.5rem;
+}
+
+.pack-toolbar {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 1.15rem 1.25rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(42, 157, 143, 0.18);
+}
+
+.pack-stat {
+  margin: 0 0 1rem;
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: var(--accent3);
+}
+
+.pack-toolbar__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+  align-items: stretch;
+}
+
+.pack-toolbar__tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.pack-input {
+  min-height: 2.75rem;
+  padding: 0.5rem 0.85rem;
+  border-radius: 12px;
+  border: 2px solid #e2e8f0;
+  font-family: var(--font);
+  font-size: 1rem;
+  min-width: 0;
+}
+
+.pack-input:focus {
+  outline: none;
+  border-color: var(--accent1);
+  box-shadow: 0 0 0 3px rgba(42, 157, 143, 0.2);
+}
+
+.pack-input--grow {
+  flex: 1 1 160px;
+}
+
+.pack-btn {
+  min-height: 2.75rem;
+  padding: 0 1rem;
+  border-radius: 12px;
+  border: none;
+  font-family: var(--font);
+  font-weight: 800;
+  font-size: 0.92rem;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform 0.12s, box-shadow 0.12s;
+}
+
+.pack-btn:active {
+  transform: scale(0.98);
+}
+
+.pack-btn--primary {
+  background: linear-gradient(135deg, var(--accent1), #21867a);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(42, 157, 143, 0.35);
+}
+
+.pack-btn--primary:hover {
+  box-shadow: 0 6px 18px rgba(42, 157, 143, 0.45);
+}
+
+.pack-btn--ghost {
+  background: #f1f5f9;
+  color: var(--accent3);
+  border: 1px solid #cbd5e1;
+}
+
+.pack-btn--ghost:hover {
+  background: #e2e8f0;
+}
+
+.pack-btn--danger {
+  background: #fff1f2;
+  color: #9f1239;
+  border: 1px solid #fecdd3;
+}
+
+.pack-btn--danger:hover {
+  background: #ffe4e6;
+}
+
+.pack-cats {
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+}
+
+.pack-cat {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 1rem 1.15rem 1.15rem;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(42, 157, 143, 0.15);
+}
+
+.pack-cat__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.65rem;
+  border-bottom: 2px solid rgba(233, 196, 106, 0.45);
+}
+
+.pack-cat__title {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--accent3);
+}
+
+.pack-items {
+  list-style: none;
+  margin: 0 0 0.75rem;
+  padding: 0;
+}
+
+.pack-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.55rem 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.pack-item:last-child {
+  border-bottom: none;
+}
+
+.pack-item__label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 1;
+  min-width: 0;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.pack-item__cb {
+  width: 1.35rem;
+  height: 1.35rem;
+  flex-shrink: 0;
+  accent-color: var(--accent1);
+  cursor: pointer;
+}
+
+.pack-item__text {
+  flex: 1;
+  min-width: 0;
+  line-height: 1.45;
+}
+
+.pack-item--packed .pack-item__text {
+  text-decoration: line-through;
+  opacity: 0.65;
+  color: var(--muted);
+}
+
+.pack-icon-btn {
+  flex-shrink: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: none;
+  border-radius: 10px;
+  background: rgba(38, 70, 83, 0.06);
+  color: var(--accent3);
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  touch-action: manipulation;
+  line-height: 1;
+}
+
+.pack-icon-btn:hover {
+  background: rgba(231, 111, 81, 0.15);
+  color: var(--accent2);
+}
+
+.pack-icon-btn--item {
+  width: 2.35rem;
+  height: 2.35rem;
+  font-size: 0.9rem;
+}
+
+.pack-add {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.35rem;
+  align-items: stretch;
+}
+
+@media (max-width: 480px) {
+  .pack-toolbar__tools {
+    flex-direction: column;
+  }
+
+  .pack-toolbar__tools .pack-btn {
+    width: 100%;
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "budapest-trip-api",
+  "private": true,
+  "version": "1.0.0",
+  "description": "API for shared packing list (Neon Postgres)",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "migrate": "node migrate.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "pg": "^8.13.0"
+  }
+}

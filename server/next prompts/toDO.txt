@@ -1,0 +1,22 @@
+
+
+
+add option for each location to add how it was from several users and pictures from there  - to create kind of diary for the trip from all participants
+
+what other information do you recomned for me to add , info that can help us during the trip ? 
+
+
+
+
+git and vercel
+
+
+done: 
+
+create page for each day , this page should include : 1.same information as in the homepage . 2.additional reccomendation for more things that can be done on the way/in the areas . 3.meals planning for 2 meals per day (will be stored in DB) 
+in the section "רשימת משימות" add option to mark as done and store it/and add/remove to/from the list and add to it the list of location that its mandatory to order ticket in advnce
+
+in the restautant and supermarket page - add what is the distance from our hotel, how many minutes in walking and is there a parking next to it
+make sure all the URLs links referring to the english version of the sites. 
+
+for each location we need to go add "link to waze" that when clicking on it it will send to waze application the location details and open waze application with the correct location

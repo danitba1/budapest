@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>יום בטיול – משפחת בן אדמון</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body id="top">
+  <button
+    type="button"
+    class="menu-toggle"
+    id="menu-toggle"
+    data-menu-toggle
+    aria-expanded="false"
+    aria-controls="site-drawer"
+  >
+    <span class="menu-toggle__bars" aria-hidden="true"></span>
+    <span class="visually-hidden">פתיחה וסגירה של תפריט האתר</span>
+  </button>
+
+  <div class="site-drawer-overlay" data-menu-overlay aria-hidden="true"></div>
+
+  <nav id="site-drawer" class="site-drawer" data-menu-drawer aria-label="תפריט צד">
+    <div class="site-drawer__head">
+      <span class="site-drawer__title">ניווט</span>
+      <button type="button" class="site-drawer__close" data-menu-close aria-label="סגירת תפריט">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <ul class="site-drawer__list">
+      <li><a class="site-drawer__link" href="index.html">דף הבית – תכנית הטיול</a></li>
+      <li><a class="site-drawer__link" href="index.html#prep-title">דגשים לפני שיוצאים</a></li>
+      <li><a class="site-drawer__link" href="index.html#plan-title">תכנית לפי ימים</a></li>
+      <li><a class="site-drawer__link site-drawer__link--current" href="trip-day.html?day=1" aria-current="page">עמוד לכל יום</a></li>
+      <li><a class="site-drawer__link" href="trip-day.html?day=1">יום 1</a></li>
+      <li><a class="site-drawer__link" href="trip-day.html?day=5">יום 5 (פליטביצה)</a></li>
+      <li><a class="site-drawer__link" href="index.html#tasks-title">משימות להזמנה מראש</a></li>
+      <li><a class="site-drawer__link" href="kosher-budapest.html">כשרות בבודפשט</a></li>
+      <li><a class="site-drawer__link" href="synagogues-budapest.html">בתי כנסת (שבת)</a></li>
+      <li><a class="site-drawer__link" href="hotels.html">מקומות לינה</a></li>
+      <li><a class="site-drawer__link" href="packing.html">רשימת אריזה</a></li>
+    </ul>
+  </nav>
+
+  <header
+    class="hero hero--compact"
+    role="banner"
+    style="--hero-image: url('https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&amp;fit=crop&amp;w=1600&amp;q=80');"
+  >
+    <div class="hero__bg" aria-hidden="true"></div>
+    <div class="hero__overlay" aria-hidden="true"></div>
+    <div class="hero__inner">
+      <p class="hero__kicker">טיול משפחתי · לפי ימים</p>
+      <h1 class="hero__title" id="trip-day-hero-title">יום בטיול</h1>
+      <p class="hero__tagline">תכנית כמו בדף הבית · המלצות · כבישים · ארוחות והערות במסד נתונים</p>
+      <a class="hero__cta hero__cta--ghost" href="index.html#plan-title">כל הימים בדף הבית</a>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <nav class="main-nav" aria-label="ניווט ראשי">
+      <a class="main-nav__link" href="index.html">תכנית הטיול</a>
+      <a class="main-nav__link main-nav__link--current" href="trip-day.html?day=1" aria-current="page">ימים בטיול</a>
+      <a class="main-nav__link" href="kosher-budapest.html">כשרות בבודפשט</a>
+      <a class="main-nav__link" href="synagogues-budapest.html">בתי כנסת</a>
+      <a class="main-nav__link" href="hotels.html">מקומות לינה</a>
+      <a class="main-nav__link" href="packing.html">רשימת אריזה</a>
+    </nav>
+
+    <div id="trip-day-root" class="trip-day-root"></div>
+    <noscript>
+      <p class="intro-box">יש להפעיל JavaScript כדי לצפות בעמוד היום.</p>
+    </noscript>
+
+    <footer class="site-footer">
+      <a class="site-footer__top" href="#top">חזרה למעלה ↑</a>
+      <p class="site-footer__line">אתר פרטי למשפחה בן אדמון · עמוד יום בטיול</p>
+    </footer>
+  </div>
+  <script src="menu.js" defer></script>
+  <script src="trip-days-data.js" defer></script>
+  <script src="trip-day.js" defer></script>
+</body>
+</html>

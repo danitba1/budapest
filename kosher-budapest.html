@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>כשרות בבודפשט – משפחת בן אדמון</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body id="top">
+  <button
+    type="button"
+    class="menu-toggle"
+    id="menu-toggle"
+    data-menu-toggle
+    aria-expanded="false"
+    aria-controls="site-drawer"
+  >
+    <span class="menu-toggle__bars" aria-hidden="true"></span>
+    <span class="visually-hidden">פתיחה וסגירה של תפריט האתר</span>
+  </button>
+
+  <div class="site-drawer-overlay" data-menu-overlay aria-hidden="true"></div>
+
+  <nav id="site-drawer" class="site-drawer" data-menu-drawer aria-label="תפריט צד">
+    <div class="site-drawer__head">
+      <span class="site-drawer__title">ניווט</span>
+      <button type="button" class="site-drawer__close" data-menu-close aria-label="סגירת תפריט">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <ul class="site-drawer__list">
+      <li><a class="site-drawer__link" href="index.html">דף הבית – תכנית הטיול</a></li>
+      <li><a class="site-drawer__link" href="index.html#prep-title">דגשים לפני שיוצאים</a></li>
+      <li><a class="site-drawer__link" href="index.html#plan-title">תכנית לפי ימים</a></li>
+      <li><a class="site-drawer__link" href="trip-day.html?day=1">עמוד מפורט לכל יום</a></li>
+      <li><a class="site-drawer__link" href="index.html#tasks-title">משימות להזמנה מראש</a></li>
+      <li><a class="site-drawer__link site-drawer__link--current" href="kosher-budapest.html" aria-current="page">כשרות בבודפשט</a></li>
+      <li><a class="site-drawer__link" href="kosher-budapest.html#stores-title">סופרים כשרים</a></li>
+      <li><a class="site-drawer__link" href="kosher-budapest.html#eateries-title">מסעדות ומאפיות</a></li>
+      <li><a class="site-drawer__link" href="synagogues-budapest.html">בתי כנסת בבודפשט (שבת)</a></li>
+      <li><a class="site-drawer__link" href="hotels.html">מקומות לינה</a></li>
+      <li><a class="site-drawer__link" href="packing.html">רשימת אריזה</a></li>
+    </ul>
+  </nav>
+
+  <header
+    class="hero hero--compact"
+    role="banner"
+    style="--hero-image: url('https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&amp;fit=crop&amp;w=1600&amp;q=80');"
+  >
+    <div class="hero__bg" aria-hidden="true"></div>
+    <div class="hero__overlay" aria-hidden="true"></div>
+    <div class="hero__inner">
+      <p class="hero__kicker">רובע 7 · כשרות · בודפשט</p>
+      <h1 class="hero__title">כשרות בבודפשט</h1>
+      <p class="hero__tagline">סופרים, מאפיות ומסעדות – כתובות, שעות, מה מוצאים וקישורים לאתרים</p>
+      <a class="hero__cta hero__cta--ghost" href="index.html">חזרה לתכנית הטיול</a>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <nav class="main-nav" aria-label="ניווט ראשי">
+      <a class="main-nav__link" href="index.html">תכנית הטיול</a>
+      <a class="main-nav__link" href="trip-day.html?day=1">ימים בטיול</a>
+      <a class="main-nav__link main-nav__link--current" href="kosher-budapest.html" aria-current="page">כשרות בבודפשט</a>
+      <a class="main-nav__link" href="synagogues-budapest.html">בתי כנסת</a>
+      <a class="main-nav__link" href="hotels.html">מקומות לינה</a>
+      <a class="main-nav__link" href="packing.html">רשימת אריזה</a>
+    </nav>
+
+    <p class="page-lede">
+      ברובע היהודי (הרובע השביעי) ובסביבתו ריכוז של עסקים כשרים. השעות משתנות בין עונה לעונה ובמיוחד לפני חגים –
+      <strong>מומלץ תמיד לאמת באתר או בטלפון לפני הגעה.</strong> ההשגחה הכשרותית מפורטת באתרי העסקים.
+      בכל כרטיס מופיעות <strong>דקות הליכה ומרחק במטרים (משוערים)</strong> מהדירה בבודפשט (<a href="hotels.html#budapest-title">נג׳י דיופה 16</a>) — לפי מפה, לא GPS.
+    </p>
+
+    <section class="kosher-section" aria-labelledby="stores-title">
+      <h2 id="stores-title" class="section-heading">סופרים ומכולת כשרה</h2>
+
+      <article class="kosher-card">
+        <div class="kosher-card__media">
+          <img
+            class="kosher-card__img"
+            src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&amp;fit=crop&amp;w=320&amp;h=320&amp;q=80"
+            width="160"
+            height="160"
+            alt="מדפי מכולת"
+            loading="lazy"
+          />
+        </div>
+        <div class="kosher-card__body">
+          <div class="kosher-card__head">
+            <div class="kosher-card__title-row">
+              <h3 class="kosher-card__title">Kosher Market (Kóser Piac)</h3>
+              <span class="kosher-badge kosher-badge--store">סופר כשר</span>
+              <span class="kosher-card__walk" title="מהדירה: Nagy Diófa utca 16, 1072">כ־7 דק׳ ברגל</span>
+            </div>
+            <div class="kosher-card__subcard">
+              <p class="kosher-card__meters">כ־600 מ׳ מהדירה (<a href="hotels.html#budapest-title">נג׳י דיופה 16</a>) — לפי מפה, לא GPS.</p>
+              <p class="kosher-card__parking"><strong>חניה:</strong> אזור דוהאני — רחוב בתשלום לפי שלטים או חניונים ליד שדרות אנדראשי.</p>
+            </div>
+          </div>
+          <p class="kosher-card__food">
+            <strong>מה מוצאים:</strong> בשר ועוף כשר, דגים, מוצרי חלב, מאפים וחלות, יינות כשרים, מוצרים מהמדף
+            (קטניות, שימורים, חטיפים מישראל), קפואים ומוצרי ניקיון לפי עונה.
+          </p>
+          <p class="kosher-card__meta"><strong>כתובת:</strong> Dohány utca 36, Budapest 1074 (מרכז הרובע היהודי)</p>
+          <p class="kosher-card__meta">
+            <strong>שעות (לפי פרסום כללי):</strong> א׳ 10:00–16:00 · ב׳–ה׳ 08:00–17:00 · ו׳ 08:00–16:00 · שבת סגור
+            <span class="muted">(לאמת מול העסק)</span>
+          </p>
+          <p class="kosher-card__meta"><strong>טלפון:</strong> ‎+36 1 615 9606‎ (לפי פרסומים)</p>
+          <a class="kosher-card__link" href="https://chabadhungary.com/en/food/138/" target="_blank" rel="noopener noreferrer">עמוד מידע – חב״ד</a>
+        </div>
+      </article>
+    </section>
+
+    <section class="kosher-section" aria-labelledby="eateries-title">
+      <h2 id="eateries-title" class="section-heading">מסעדות, בית קפה ומאפייה</h2>
+
+      <article class="kosher-card">
+        <div class="kosher-card__media">
+          <img
+            class="kosher-card__img"
+            src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&amp;fit=crop&amp;w=320&amp;h=320&amp;q=80"
+            width="160"
+            height="160"
+            alt="מאפים ועוגות"
+            loading="lazy"
+          />
+        </div>
+        <div class="kosher-card__body">
+          <div class="kosher-card__head">
+            <div class="kosher-card__title-row">
+              <h3 class="kosher-card__title">Fröhlich – מאפייה ובית קפה חלבי</h3>
+              <span class="kosher-badge kosher-badge--dairy">חלבי</span>
+              <span class="kosher-card__walk" title="מהדירה: Nagy Diófa utca 16, 1072">כ־5 דק׳ ברגל</span>
+            </div>
+            <div class="kosher-card__subcard">
+              <p class="kosher-card__meters">כ־450 מ׳ מהדירה (<a href="hotels.html#budapest-title">נג׳י דיופה 16</a>) — לפי מפה, לא GPS.</p>
+              <p class="kosher-card__parking"><strong>חניה:</strong> רחוב דוב צפוף — נוח ברגל מהדירה.</p>
+            </div>
+          </div>
+          <p class="kosher-card__food">
+            <strong>מה מוצאים:</strong> עוגות הונגריות קלאסיות, פלודן, קינוחים, מאפים, לעיתים גם חלות – אווירת בית קפה
+            כשר חלבי ברובע.
+          </p>
+          <p class="kosher-card__meta"><strong>כתובת:</strong> Dob utca 22, Budapest 1072</p>
+          <p class="kosher-card__meta">
+            <strong>שעות (לפי פרסום כללי):</strong> ב׳–ה׳ 09:00–18:00 · ו׳ 09:00–14:00 · שבת סגור · א׳ 10:00–18:00
+            <span class="muted">(לאמת מול העסק)</span>
+          </p>
+          <p class="kosher-card__meta"><strong>טלפון:</strong> ‎+36 1 266 1733‎</p>
+          <a class="kosher-card__link" href="https://www.froehlich.hu/" target="_blank" rel="noopener noreferrer">אתר Fröhlich</a>
+        </div>
+      </article>
+
+      <article class="kosher-card">
+        <div class="kosher-card__media">
+          <img
+            class="kosher-card__img"
+            src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&amp;fit=crop&amp;w=320&amp;h=320&amp;q=80"
+            width="160"
+            height="160"
+            alt="מנות במסעדה"
+            loading="lazy"
+          />
+        </div>
+        <div class="kosher-card__body">
+          <div class="kosher-card__head">
+            <div class="kosher-card__title-row">
+              <h3 class="kosher-card__title">Carmel – מסעדה בשרית</h3>
+              <span class="kosher-badge kosher-badge--meat">בשרי</span>
+              <span class="kosher-card__walk" title="מהדירה: Nagy Diófa utca 16, 1072">כ־9 דק׳ ברגל</span>
+            </div>
+            <div class="kosher-card__subcard">
+              <p class="kosher-card__meters">כ־750 מ׳ מהדירה (<a href="hotels.html#budapest-title">נג׳י דיופה 16</a>) — לפי מפה, לא GPS.</p>
+              <p class="kosher-card__parking"><strong>חניה:</strong> אזור קזינצי עמוס בערב ובסופ״ש — לפי שלטים או חניונים בסביבה.</p>
+            </div>
+          </div>
+          <p class="kosher-card__food">
+            <strong>מה מוצאים:</strong> מטבח יהודי־הונגרי ומנות בשריות, תפריט עשיר לארוחות שישי־שבת (לפי הזמנה מראש).
+            מומלץ לתאם שולחן ולשבת – הזמנה דרך האתר.
+          </p>
+          <p class="kosher-card__meta"><strong>כתובת:</strong> Kazinczy utca 31, Budapest 1075</p>
+          <p class="kosher-card__meta">
+            <strong>שעות:</strong> פתוח לארוחות צהריים וערב בימי חול; שבת – לפי הזמנה בלבד. יש לבדוק באתר לעדכון.
+          </p>
+          <a class="kosher-card__link" href="https://www.carmel.hu/en" target="_blank" rel="noopener noreferrer">אתר Carmel</a>
+        </div>
+      </article>
+
+      <article class="kosher-card">
+        <div class="kosher-card__media">
+          <img
+            class="kosher-card__img"
+            src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&amp;fit=crop&amp;w=320&amp;h=320&amp;q=80"
+            width="160"
+            height="160"
+            alt="קפה ועוגה"
+            loading="lazy"
+          />
+        </div>
+        <div class="kosher-card__body">
+          <div class="kosher-card__head">
+            <div class="kosher-card__title-row">
+              <h3 class="kosher-card__title">Tel Aviv Café – מסעדה חלבית</h3>
+              <span class="kosher-badge kosher-badge--dairy">חלבי</span>
+              <span class="kosher-card__walk" title="מהדירה: Nagy Diófa utca 16, 1072">כ־9 דק׳ ברגל</span>
+            </div>
+            <div class="kosher-card__subcard">
+              <p class="kosher-card__meters">כ־720 מ׳ מהדירה (<a href="hotels.html#budapest-title">נג׳י דיופה 16</a>) — לפי מפה, לא GPS.</p>
+              <p class="kosher-card__parking"><strong>חניה:</strong> כמו Carmel — אזור קזינצי; עמוס בערב ובסופ״ש — לפי שלטים או חניונים בסביבה.</p>
+            </div>
+          </div>
+          <p class="kosher-card__food">
+            <strong>מה מוצאים:</strong> מטבח חלבי בסגנון ישראלי־ים תיכוני – סלטים, פלאפל, שקשוקה, קפה ועוד.
+          </p>
+          <p class="kosher-card__meta"><strong>כתובת:</strong> Kazinczy utca 28, Budapest 1075</p>
+          <p class="kosher-card__meta"><strong>שעות:</strong> לפי פרסום בחב״ד – יש לוודא באתר או בטלפון.</p>
+          <a class="kosher-card__link" href="https://chabadhungary.com/en/food/90/" target="_blank" rel="noopener noreferrer">עמוד מידע – חב״ד</a>
+        </div>
+      </article>
+
+      <article class="kosher-card">
+        <div class="kosher-card__media">
+          <img
+            class="kosher-card__img"
+            src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&amp;fit=crop&amp;w=320&amp;h=320&amp;q=80"
+            width="160"
+            height="160"
+            alt="מנת בשר"
+            loading="lazy"
+          />
+        </div>
+        <div class="kosher-card__body">
+          <div class="kosher-card__head">
+            <div class="kosher-card__title-row">
+              <h3 class="kosher-card__title">Meetup – מסעדה בשרית</h3>
+              <span class="kosher-badge kosher-badge--meat">בשרי</span>
+              <span class="kosher-card__walk" title="מהדירה: Nagy Diófa utca 16, 1072">כ־2 דק׳ ברגל</span>
+            </div>
+            <div class="kosher-card__subcard">
+              <p class="kosher-card__meters">כ־180 מ׳ מהדירה (<a href="hotels.html#budapest-title">נג׳י דיופה 16</a>) — לפי מפה, לא GPS.</p>
+              <p class="kosher-card__parking"><strong>חניה:</strong> אותו רחוב כמו הדירה — לפי שלטים ברחוב ובסמטות הסמוכות.</p>
+            </div>
+          </div>
+          <p class="kosher-card__food">
+            <strong>מה מוצאים:</strong> מסעדה בשרית כשרה במרכז העיר (ליד הרובע היהודי) – תפריט בשרי מגוון.
+          </p>
+          <p class="kosher-card__meta"><strong>כתובת:</strong> Nagy Diófa utca 4, Budapest 1072</p>
+          <p class="kosher-card__meta"><strong>שעות:</strong> לפי פרסום בחב״ד – יש לוודא באתר או בטלפון.</p>
+          <a class="kosher-card__link" href="https://chabadhungary.com/en/food/101/" target="_blank" rel="noopener noreferrer">עמוד מידע – חב״ד</a>
+        </div>
+      </article>
+
+      <article class="kosher-card">
+        <div class="kosher-card__media">
+          <img
+            class="kosher-card__img"
+            src="https://images.unsplash.com/photo-1529006557810-274b9b2fc783?auto=format&amp;fit=crop&amp;w=320&amp;h=320&amp;q=80"
+            width="160"
+            height="160"
+            alt="פלאפל וירקות"
+            loading="lazy"
+          />
+        </div>
+        <div class="kosher-card__body">
+          <div class="kosher-card__head">
+            <div class="kosher-card__title-row">
+              <h3 class="kosher-card__title">בית חב״ד בודפשט – ארוחות שבת ומידע</h3>
+              <span class="kosher-badge kosher-badge--info">קהילה</span>
+              <span class="kosher-card__walk" title="מהדירה: Nagy Diófa utca 16, 1072">כ־23 דק׳ ברגל</span>
+            </div>
+            <div class="kosher-card__subcard">
+              <p class="kosher-card__meters">כ־1,800 מ׳ מהדירה (<a href="hotels.html#budapest-title">נג׳י דיופה 16</a>) — לפי מפה, לא GPS.</p>
+              <p class="kosher-card__parking"><strong>חניה:</strong> מרכז העיר — נוח יותר בתחבורה ציבורית מהרובע 7; חניה בתשלום לפי אזור.</p>
+            </div>
+          </div>
+          <p class="kosher-card__food">
+            <strong>מה מוצאים:</strong> הרשמה לארוחות שבת וחג, מרכז מבקרים, לעיתים גם בר פלאפל (Wesselényi – לפי עדכון באתר).
+          </p>
+          <p class="kosher-card__meta"><strong>כתובת מרכזית:</strong> Károly körút 20, Budapest 1052</p>
+          <p class="kosher-card__meta"><strong>שעות:</strong> לפי האתר – פעילות שבת וחג דורשת הרשמה מראש.</p>
+          <a class="kosher-card__link" href="https://chabadhungary.com/en/shabbat/" target="_blank" rel="noopener noreferrer">שבת וחג – חב״ד הונגריה</a>
+          &nbsp;·&nbsp;
+          <a class="kosher-card__link" href="https://chabadhungary.com/en/food/" target="_blank" rel="noopener noreferrer">כל העסקים הכשרים ברשימה</a>
+        </div>
+      </article>
+    </section>
+
+    <p class="kosher-footnote muted">
+      תמונות הן להמחשה בלבד (Unsplash) ואינן צילומי החנויות עצמן. פרטים עסקיים עשויים להשתנות – האתר הרשמי של כל עסק הוא המקור.
+    </p>
+
+    <footer class="site-footer">
+      <a class="site-footer__top" href="#top">חזרה למעלה ↑</a>
+      <p class="site-footer__line">אתר פרטי למשפחה בן אדמון · כשרות בבודפשט</p>
+    </footer>
+  </div>
+  <script src="menu.js" defer></script>
+</body>
+</html>
