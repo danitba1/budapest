@@ -79,6 +79,17 @@
       <a class="main-nav__link" href="packing.html">רשימת אריזה</a>
     </nav>
 
+    <section class="tz-clocks" aria-label="שעונים (זמני מדינות)">
+      <div class="tz-clocks__item">
+        <div class="tz-clocks__label">ישראל</div>
+        <div class="tz-clocks__time" data-tz="Asia/Jerusalem">—:—</div>
+      </div>
+      <div class="tz-clocks__item">
+        <div class="tz-clocks__label">בודפשט</div>
+        <div class="tz-clocks__time" data-tz="Europe/Budapest">—:—</div>
+      </div>
+    </section>
+
     <section class="route-mosaic" aria-label="יעדי המסלול בקצרה">
       <h2 class="route-mosaic__heading">המסלול במבט אחד</h2>
       <div class="route-mosaic__grid">
@@ -611,5 +622,35 @@
   <script src="trip-days-data.js" defer></script>
   <script src="tasks.js" defer></script>
   <script src="menu.js" defer></script>
+  <script>
+    (function () {
+      function fmt(tz) {
+        var parts = new Intl.DateTimeFormat("he-IL", {
+          timeZone: tz,
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: false,
+        }).formatToParts(new Date());
+        var hh = parts.find(function (x) { return x.type === "hour"; });
+        var mm = parts.find(function (x) { return x.type === "minute"; });
+        var ss = parts.find(function (x) { return x.type === "second"; });
+        return (hh ? hh.value : "00") + ":" + (mm ? mm.value : "00") + ":" + (ss ? ss.value : "00");
+      }
+      function tick() {
+        var nodes = document.querySelectorAll("[data-tz]");
+        for (var i = 0; i < nodes.length; i++) {
+          var tz = nodes[i].getAttribute("data-tz");
+          try {
+            nodes[i].textContent = fmt(tz);
+          } catch (e) {
+            nodes[i].textContent = "—:—";
+          }
+        }
+      }
+      tick();
+      setInterval(tick, 1000);
+    })();
+  </script>
 </body>
 </html>

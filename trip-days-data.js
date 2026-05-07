@@ -341,7 +341,13 @@
   var E = {
     "1": {
       navigation:
-        "<p class=\"trip-extra-prose\"><strong>זמני נסיעה משוערים (ברכב, ללא עצירות ארוכות):</strong> מבודפשט לאזור גבול הונגריה–סלובניה בערך <strong>2–2½ שעות</strong> (תלוי נקודת יציאה ועומס); מן הגבול לכיוון בלד עוד כ־<strong>2½–3 שעות</strong>. <strong>סה״כ</strong> לכיוון בלד כ־<strong>5 שעות</strong> נהיגה רציפה. עצירה בלובליאנה — הוסיפו לפחות <strong>45 דק׳–שעה</strong> לביקור + חניה.</p>" +
+        "<div class=\"trip-extra-prose\"><strong>זמני נסיעה משוערים (ברכב, ללא עצירות ארוכות):</strong>" +
+        "<ul class=\"trip-bullets\">" +
+        "<li>בודפשט → אזור גבול הונגריה–סלובניה: בערך <strong>2–2½ שעות</strong> (תלוי נקודת יציאה ועומס).</li>" +
+        "<li>הגבול → בלד: עוד כ־<strong>2½–3 שעות</strong>.</li>" +
+        "<li><strong>סה״כ</strong> לכיוון בלד: כ־<strong>5 שעות</strong> נהיגה רציפה.</li>" +
+        "<li>עצירה בלובליאנה: הוסיפו לפחות <strong>45 דק׳–שעה</strong> לביקור + חניה.</li>" +
+        "</ul></div>" +
         "<p class=\"trip-extra-prose\"><strong>עומס ותזמון:</strong> יציאה מבודפשט בשעות <strong>07:00–09:00</strong> לרוב עמוסה. אחר הצהריים בכניסה לאזור בלד (סופ״ש) — תנועה וחניה ליד האגם עמוסים יותר; כדאי לבדוק מראש חניה במלון/חיצונית.</p>",
       recommendations: [
         "עצירה בלובליאנה (כ־45 דק׳ מהמסלול) — טיילת ליד הנהר, גשר הדרקונים, שוק אם פתוח.",
@@ -354,7 +360,12 @@
     },
     "2": {
       navigation:
-        "<p class=\"trip-extra-prose\"><strong>זמני נסיעה משוערים:</strong> בלד → מעבר Predil ואז בובץ׳ (Bovec) בערך <strong>1:00–1:30 שעות</strong> (כביש הררי, פיתולים). בובץ׳ ↔ מפל Virje כ־<strong>10–15 דק׳</strong>. חזרה לבלד — עוד כ־<strong>1:00–1:30</strong>.</p>" +
+        "<div class=\"trip-extra-prose\"><strong>זמני נסיעה משוערים:</strong>" +
+        "<ul class=\"trip-bullets\">" +
+        "<li>בלד → מעבר Predil → בובץ׳ (Bovec): בערך <strong>1:00–1:30 שעות</strong> (כביש הררי, פיתולים).</li>" +
+        "<li>בובץ׳ ↔ מפל Virje: כ־<strong>10–15 דק׳</strong>.</li>" +
+        "<li>חזרה לבלד: עוד כ־<strong>1:00–1:30</strong>.</li>" +
+        "</ul></div>" +
         "<p class=\"trip-extra-prose\"><strong>עומס ותזמון:</strong> בקטעי הרים אפשר להיתקע מאחורי משאיות איטיות; לפני ראפטינג — הגיעו <strong>15–20 דק׳</strong> לפני שעת האיסוף. אין כאן «שעות שיא» מטרופוליניות, אבל בקיץ כבישי תיירות עמוסים יותר באמצע היום.</p>",
       recommendations: [
         "מוזיאון מלחמה בקובאריד (Kobarid) — קרוב ל-Bovec, מעניין למבוגרים ולילדים גדולים.",
@@ -366,7 +377,12 @@
     },
     "3": {
       navigation:
-        "<p class=\"trip-extra-prose\"><strong>זמני נסיעה משוערים:</strong> בלד → Vintgar כ־<strong>10–15 דק׳</strong>. Vintgar → אזור אגם בוהיני / תחתית רכבל Vogel כ־<strong>25–40 דק׳</strong>. חזרה לבלד כ־<strong>25–35 דק׳</strong> (תלוי מקור היציאה בבוהיני).</p>" +
+        "<div class=\"trip-extra-prose\"><strong>זמני נסיעה משוערים:</strong>" +
+        "<ul class=\"trip-bullets\">" +
+        "<li>בלד → Vintgar: כ־<strong>10–15 דק׳</strong>.</li>" +
+        "<li>Vintgar → אזור אגם בוהיני / תחתית רכבל Vogel: כ־<strong>25–40 דק׳</strong>.</li>" +
+        "<li>חזרה לבלד: כ־<strong>25–35 דק׳</strong> (תלוי מקור היציאה בבוהיני).</li>" +
+        "</ul></div>" +
         "<p class=\"trip-extra-prose\"><strong>עומס ותזמון:</strong> חניה וכניסה ל־Vintgar <strong>צפופים בדרך כלל 10:00–14:00</strong> בעונה — מומלץ להגיע מוקדם או בסוף אחר הצהריים לפי שעות האתר.</p>",
       recommendations: [
         "אגם בוהיני: רציף ליד כנסיית יוחנן המטביל — רגע צילום קלאסי.",
@@ -378,7 +394,12 @@
     },
     "4": {
       navigation:
-        "<p class=\"trip-extra-prose\"><strong>זמני נסיעה משוערים:</strong> תלויים בבחירה בין Aqualuna (Podčetrtek) ל־Terme 3000 ובמיקום הלינה בקרואטיה — בדרך כלל בין <strong>שעה לשלוש שעות</strong> בין נקודות היום. מסלול לגבול סלובניה–קרואטיה — לעיתים <strong>תור קצר</strong> בשיא עונה.</p>" +
+        "<div class=\"trip-extra-prose\"><strong>זמני נסיעה משוערים:</strong>" +
+        "<ul class=\"trip-bullets\">" +
+        "<li>תלוי בבחירה בין Aqualuna (Podčetrtek) ל־Terme 3000 ובמיקום הלינה בקרואטיה.</li>" +
+        "<li>בדרך כלל בין <strong>שעה לשלוש שעות</strong> בין נקודות היום.</li>" +
+        "<li>מסלול לגבול סלובניה–קרואטיה: לעיתים <strong>תור קצר</strong> בשיא עונה.</li>" +
+        "</ul></div>" +
         "<p class=\"trip-extra-prose\"><strong>עומס ותזמון:</strong> כבישים אזוריים צרים; אחרי פארק מים — ייבוש והפסקה קצרה לפני נסיעה ארוכה לעבר הגבול.</p>",
       recommendations: [
         "בין Aqualuna ל-Terme 3000 — לבחור לפי מרחק מהלינה בקרואטיה; לבדוק שעות פתיחה באתר.",
@@ -390,7 +411,11 @@
     },
     "5": {
       navigation:
-        "<p class=\"trip-extra-prose\"><strong>זמני נסיעה משוערים:</strong> מאזור רסטוקה/סלוני לכניסה לפליטביצה (כניסה 1) בדרך כלל <strong>20–35 דק׳</strong> בבוקר. מפליטביצה חזרה לבודפשט — בערך <strong>4:30–6 שעות</strong> (מסלול, עצירות וגבולות).</p>" +
+        "<div class=\"trip-extra-prose\"><strong>זמני נסיעה משוערים:</strong>" +
+        "<ul class=\"trip-bullets\">" +
+        "<li>רסטוקה/סלוני → כניסה לפליטביצה (כניסה 1): בדרך כלל <strong>20–35 דק׳</strong> בבוקר.</li>" +
+        "<li>פליטביצה → בודפשט: בערך <strong>4:30–6 שעות</strong> (מסלול, עצירות וגבולות).</li>" +
+        "</ul></div>" +
         "<p class=\"trip-extra-prose\"><strong>עומס ותזמון:</strong> כניסה מוקדמת לפארק חוסכת תורים בכניסה; <strong>אחר הצהריים</strong> בכבישים ארוכים — עייפות נהגים; כדאי להחליף נהגים. כניסה לבודפשט בערב — תנועה עירונית איטית יותר.</p>",
       recommendations: [
         "בפליטביצה: מסלול H מומלץ למבקרים ביום אחד — שילוב הליכה, סירה ורכבת (לפי עונה).",
@@ -402,7 +427,12 @@
     },
     "6": {
       navigation:
-        "<p class=\"trip-extra-prose\"><strong>זמני נסיעה משוערים:</strong> מרובע 7 בבודפשט לוישיגראד (Bobpálya) בערך <strong>45–60 דק׳</strong>; חזרה דומה. קניות בשישי — קחו בחשבון זמן <strong>חניה + תורים</strong> במרכולים.</p>" +
+        "<div class=\"trip-extra-prose\"><strong>זמני נסיעה משוערים:</strong>" +
+        "<ul class=\"trip-bullets\">" +
+        "<li>רובע 7 בבודפשט → וישיגראד (Bobpálya): בערך <strong>45–60 דק׳</strong>.</li>" +
+        "<li>חזרה: דומה.</li>" +
+        "<li>קניות בשישי: קחו בחשבון זמן <strong>חניה + תורים</strong> במרכולים.</li>" +
+        "</ul></div>" +
         "<p class=\"trip-extra-prose\"><strong>עומס ותזמון:</strong> <strong>שישי אחר הצהריים</strong> — כניסה לעיר עמוסה לפני שבת; סיימו נסיעות מוקדם מספיק לפני כניסת השבת.</p>",
       recommendations: [
         "בוישיגראד: טירה (Fellegvár) אם יש זמן ורגליים — נוף לדנובה (לא בשבת אם מקפידים על כרטיסים).",
@@ -426,7 +456,11 @@
     },
     "8": {
       navigation:
-        "<p class=\"trip-extra-prose\"><strong>זמני נסיעה משוערים:</strong> מרובע 7 ל־Aquaworld (צפון־מזרח העיר) בערך <strong>25–45 דק׳</strong> ברכב (תלוי במסלול ובשעה). חזרה — דומה; בדקו אם יש הסעה מהמתחם ושעותיה.</p>" +
+        "<div class=\"trip-extra-prose\"><strong>זמני נסיעה משוערים:</strong>" +
+        "<ul class=\"trip-bullets\">" +
+        "<li>רובע 7 → Aquaworld (צפון־מזרח העיר): בערך <strong>25–45 דק׳</strong> ברכב (תלוי במסלול ובשעה).</li>" +
+        "<li>חזרה: דומה; בדקו אם יש הסעה מהמתחם ושעותיה.</li>" +
+        "</ul></div>" +
         "<p class=\"trip-extra-prose\"><strong>עומס ותזמון:</strong> <strong>פתיחת פארק המים</strong> — תורים אפשריים לקופה; בשעות אחר הצהריים — עומס בכבישים לכיוון מרכז העיר.</p>",
       recommendations: [
         "Aquaworld — מגבות לפעמים בתשלום; כדאי להביא מהמלון.",
@@ -438,7 +472,12 @@
     },
     "9": {
       navigation:
-        "<p class=\"trip-extra-prose\"><strong>זמני נסיעה משוערים:</strong> רובע 7 → בסיס Libegő (Zugliget) בערך <strong>20–35 דק׳</strong> ברכב. Libegő ↔ אי מרגיט — בערך <strong>15–30 דק׳</strong> ברכב בתוך העיר (תלוי חניה ליד הגשרים). לקניונים — בדרך כלל <strong>10–25 דק׳</strong> מתוך המרכז.</p>" +
+        "<div class=\"trip-extra-prose\"><strong>זמני נסיעה משוערים:</strong>" +
+        "<ul class=\"trip-bullets\">" +
+        "<li>רובע 7 → בסיס Libegő (Zugliget): בערך <strong>20–35 דק׳</strong> ברכב.</li>" +
+        "<li>Libegő ↔ אי מרגיט: בערך <strong>15–30 דק׳</strong> ברכב בתוך העיר (תלוי חניה ליד הגשרים).</li>" +
+        "<li>לקניונים: בדרך כלל <strong>10–25 דק׳</strong> מתוך המרכז.</li>" +
+        "</ul></div>" +
         "<p class=\"trip-extra-prose\"><strong>עומס ותזמון:</strong> מרכז ו־Váci בשעות אחר הצהריים <strong>עמוסים</strong>; חניה במרגיט — מצומצמת בשיא, שקלו תחבורה ציבורית או מונית לקטעים מסוימים.</p>",
       recommendations: [
         "Libegő + גבעת יאנוש — אפשר לשלב עם גן חיות (בתשלום נפרד) אם הילדים רוצים.",
@@ -450,7 +489,11 @@
     },
     "10": {
       navigation:
-        "<p class=\"trip-extra-prose\"><strong>זמני נסיעה משוערים:</strong> מרובע 7 לשילר (החזרת רכב) בערך <strong>25–40 דק׳</strong>. משילר לשדה התעופה — תלוי במסוף הטיסה; לרוב <strong>30–50 דק׳</strong> + זמן היסעה פנימית בטרמינל.</p>" +
+        "<div class=\"trip-extra-prose\"><strong>זמני נסיעה משוערים:</strong>" +
+        "<ul class=\"trip-bullets\">" +
+        "<li>רובע 7 → שילר (החזרת רכב): בערך <strong>25–40 דק׳</strong>.</li>" +
+        "<li>שילר → שדה התעופה: לרוב <strong>30–50 דק׳</strong> + זמן היסעה פנימית בטרמינל (תלוי במסוף).</li>" +
+        "</ul></div>" +
         "<p class=\"trip-extra-prose\"><strong>עומס ותזמון:</strong> <strong>יום טיסה</strong> — השאירו מרווח של לפחות <strong>שעה–שעתיים</strong> אחרי זמן החזרה הרשום מול שעת הטיסה (בדיקת רכב, הסעה, ביטחון). בוקר בשדה — תורים בביטחון ובצ׳ק־אין.</p>",
       recommendations: [
         "לפני שילר: דלק מלא, ריקון שתייה מהרכב אם נדרש להשכרה.",

@@ -167,6 +167,7 @@
       "<strong>—</strong> – לא רלוונטי לכרטיס";
     root.appendChild(legend);
 
+
     var card = el("article", "day-card", { id: "day" + currentDay });
     var headRow = el("div", "day-head-row");
     var head = el("div", "day-head", { text: plan.title });
