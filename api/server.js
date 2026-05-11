@@ -15,9 +15,25 @@ function patchUrlForInternalRewrite(req) {
   req.url = fwd;
 }
 
-module.exports = async function handler(req, res) {
+function clearServerModuleCache() {
   try {
-    patchUrlForInternalRewrite(req);
+    var appPath = require.resolve("../server/app");
+    delete require.cache[appPath];
+  } catch (x) {
+    /* ignore */
+  }
+  try {
+    var cfgPath = require.resolve("../server/connection-config");
+    delete require.cache[cfgPath];
+  } catch (x2) {
+    /* ignore */
+  }
+}
+
+module.exports = async function handler(req, res) {
+  patchUrlForInternalRewrite(req);
+  var h;
+  try {
     if (!handlerPromise) {
       handlerPromise = (async function () {
         var mod = require("../server/app");
@@ -25,10 +41,20 @@ module.exports = async function handler(req, res) {
         return serverless(mod.app);
       })();
     }
-    var h = await handlerPromise;
-    return h(req, res);
+    h = await handlerPromise;
   } catch (e) {
-    console.error("[api/server]", e);
+    console.error("[api/server] init failed", e);
+    handlerPromise = null;
+    clearServerModuleCache();
+    if (!res.headersSent) {
+      res.status(500).json({ error: String(e.message || e) });
+    }
+    return;
+  }
+  try {
+    return await h(req, res);
+  } catch (e) {
+    console.error("[api/server] request error", e);
     if (!res.headersSent) {
       res.status(500).json({ error: String(e.message || e) });
     }

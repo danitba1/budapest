@@ -13,10 +13,28 @@ var PACK_API_TOKEN = process.env.PACK_API_TOKEN || "";
 
 var poolOpts = getPoolOptions();
 if (!poolOpts) {
-  console.error("Missing DATABASE_URL in .env");
+  var vercelHint =
+    "Missing DATABASE_URL. On Vercel: Project → Settings → Environment Variables → add DATABASE_URL (paste Neon connection string), Production + Preview as needed, then Redeploy. Local: create server/.env with DATABASE_URL=...";
+  if (process.env.VERCEL) {
+    throw new Error(vercelHint);
+  }
+  console.error("[budapest-api] " + vercelHint);
   process.exit(1);
 }
 var pool = new Pool(poolOpts);
+
+/** Hostname from DATABASE_URL (no password) — compare Vercel vs local to confirm same Neon DB. */
+function databaseUrlHostHint() {
+  var raw = process.env.DATABASE_URL || "";
+  if (!raw) return null;
+  try {
+    var normalized = raw.replace(/^postgres(ql)?:\/\//i, "https://");
+    var u = new URL(normalized);
+    return u.hostname || null;
+  } catch (e) {
+    return null;
+  }
+}
 
 var _dbUrlUser = getDatabaseUserFromUrl();
 if (_dbUrlUser && _dbUrlUser.toLowerCase() === "authenticator") {
@@ -433,9 +451,9 @@ app.use(express.json({ limit: "512kb" }));
 app.get("/api/health", async function (req, res) {
   try {
     await pool.query("SELECT 1");
-    res.json({ ok: true, db: true });
+    res.json({ ok: true, db: true, dbHost: databaseUrlHostHint() });
   } catch (e) {
-    res.status(500).json({ ok: false, error: String(e.message) });
+    res.status(500).json({ ok: false, error: String(e.message), dbHost: databaseUrlHostHint() });
   }
 });
 
@@ -467,6 +485,7 @@ app.get("/api/tasks", async function (req, res) {
       hidden: norm.hidden,
       custom: norm.custom,
       updatedAt: row.updated_at,
+      dbHost: databaseUrlHostHint(),
     });
   } catch (e) {
     console.error(e);
@@ -494,6 +513,7 @@ app.put("/api/tasks", async function (req, res) {
       hidden: norm.hidden,
       custom: norm.custom,
       updatedAt: up.rows[0].updated_at,
+      dbHost: databaseUrlHostHint(),
     });
   } catch (e) {
     console.error(e);
@@ -740,4 +760,4 @@ async function prepare() {
   await ensureTripTasksSeed();
 }
 
-module.exports = { app, prepare, PORT, logPackingPermissionHelp };
+module.exports = { app, prepare, PORT, logPackingPermissionHelp, databaseUrlHostHint };

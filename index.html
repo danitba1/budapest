@@ -568,29 +568,14 @@
       <h2 id="tasks-title" class="section-heading">רשימת משימות להזמנה מראש</h2>
       <p class="muted tasks-intro">
         סמנו משימות שבוצעו, הוסיפו משימות משלכם והסירו מה שלא רלוונטי — הרשימה נשמרת ב<strong>PostgreSQL</strong> דרך השרת (כמו ארוחות ליום), עם גיבוי בדפדפן.
-        יש לפתוח את האתר דרך השרת (למשל <code>http://localhost:3000/index.html</code>), לא מקובץ מהדיסק. מתחת מופיעים כל המקומות שבתכנית מסומנים
+        יש לפתוח את האתר דרך השרת (למשל <code>http://localhost:3000/index.html</code>), לא מקובץ מהדיסק. ב־<strong>Vercel</strong> חובה להגדיר <code>DATABASE_URL</code> במשתני הסביבה של הפרויקט (אותה מחרוזת Neon כמו ב־<code>server/.env</code> מקומית) ולפרוס מחדש. מתחת מופיעים כל המקומות שבתכנית מסומנים
         <strong>חובה</strong> (כרטיס מראש), ואז משימות כלליות.
       </p>
       <div id="tasks-root" class="tasks-box"></div>
       <p class="closing">תכנית מאוזנת בין נהיגה מאומצת בימים הראשונים לסופ״ש רגוע וכשר בבודפשט – תהנו!</p>
     </section>
 
-    <section class="future-pages" aria-labelledby="future-title">
-      <h2 id="future-title" class="section-heading section-heading--on-card">רעיונות לעמודים נוספים באתר</h2>
-      <p class="muted" style="margin-top:0">אפשר להוסיף בהמשך קבצי HTML ולקשר מהתפריט למעלה.</p>
-      <ul>
-        <li><strong><a href="kosher-budapest.html">כשרות בבודפשט</a></strong> – סופרים ומסעדות (נוסף) · כשרות בסלובניה/קרואטיה – בעמוד נפרד בהמשך</li>
-        <li><strong><a href="trip-day.html?day=1">עמוד לכל יום בטיול</a></strong> – טבלת היום כמו בדף הבית, המלצות, כבישים, שתי ארוחות במסד נתונים</li>
-        <li><strong>נהיגה וגבולות</strong> – וינייטות, דלק, חניה, Waze/Google Maps</li>
-        <li><strong>לינה</strong> – אזורים מומלצים לפי לילה + קישורים להזמנות</li>
-        <li><strong><a href="synagogues-budapest.html">בתי כנסת בבודפשט (שבת)</a></strong> – כתובות, מרחק מהדירה, נאולוג / אורתודוקסי / סטטוס קוו אנטה</li>
-        <li><strong>חירום ובריאות</strong> – מספרים, ביטוח נסיעות, קופת חולים</li>
-        <li><strong><a href="packing.html">רשימת אריזה אינטראקטיבית</a></strong> – קטגוריות, סימון ארוז, נשמר בדפדפן</li>
-        <li><strong>תקציב</strong> – הערכת עלויות ומעקב הוצאות</li>
-        <li><strong>גלריה</strong> – תמונות מהטיול אחרי החזרה</li>
-      </ul>
-    </section>
-
+    
     <footer class="site-footer">
       <a class="site-footer__top" href="#top">חזרה למעלה ↑</a>
       <p class="site-footer__line">אתר פרטי למשפחה בן אדמון · נוצר לטיול 2026</p>

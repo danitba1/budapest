@@ -16,6 +16,8 @@
   var syncLineText = "";
   var saveTimer = null;
   var lastServerUpdatedAt = null;
+  /** Hostname from API — compare Vercel vs localhost; must match for one shared DB. */
+  var lastDbHost = null;
 
   var CORE_TASK_SEEDS = [
     {
@@ -141,7 +143,7 @@
 
   function updateSyncLineInDom() {
     var n = document.querySelector(".tasks-remote-status");
-    if (n) n.textContent = syncLineText;
+    if (n) n.textContent = syncLineText + (lastDbHost ? " · מאגר: " + lastDbHost : "");
   }
 
   function scheduleRemoteSave() {
@@ -189,6 +191,7 @@
         }),
       });
       if (putRes && putRes.updatedAt) lastServerUpdatedAt = putRes.updatedAt;
+      if (putRes && putRes.dbHost) lastDbHost = putRes.dbHost;
       syncLineText = lastServerUpdatedAt
         ? "נשמר בענן · עדכון אחרון בשרת: " + new Date(lastServerUpdatedAt).toLocaleString("he-IL")
         : "נשמר בענן.";
@@ -202,12 +205,14 @@
   async function hydrateFromServer() {
     remoteWritesEnabled = false;
     syncLineText = "";
+    lastDbHost = null;
     try {
       var data = await apiFetch("/api/tasks", {
         method: "GET",
         headers: getAuthHeaders(),
       });
       if (data && data.updatedAt) lastServerUpdatedAt = data.updatedAt;
+      if (data && data.dbHost) lastDbHost = data.dbHost;
       var serverNorm = normalizeFromServer(data);
       var local = loadLocalState();
       if (isEmptyState(serverNorm) && !isEmptyState(local)) {
@@ -222,6 +227,7 @@
           }),
         });
         if (putData && putData.updatedAt) lastServerUpdatedAt = putData.updatedAt;
+        if (putData && putData.dbHost) lastDbHost = putData.dbHost;
         saveLocalOnly(memState);
         syncLineText = lastServerUpdatedAt
           ? "מצב מהדפדפן הועבר לשרת · " + new Date(lastServerUpdatedAt).toLocaleString("he-IL")
@@ -235,13 +241,18 @@
       }
       remoteWritesEnabled = true;
     } catch (err) {
+      lastDbHost = null;
       memState = loadLocalState();
+      var reason = err && err.message ? String(err.message) : String(err);
+      if (reason.length > 220) reason = reason.slice(0, 217) + "…";
       if (err && (err.message === "UNAUTHORIZED" || err.status === 401)) {
         syncLineText =
           "בעיית הרשאה ל־/api/tasks (נדיר). רעננו את הדף; אם נמשך — בדקו את השרת.";
       } else {
         syncLineText =
-          "אין גישה לשרת (למשל קובץ נפתח מהדיסק או השרת לא רץ) — המשימות נשמרות רק בדפדפן זה.";
+          "אין גישה לשרת — המשימות נשמרות רק בדפדפן זה. פרטים: " +
+          reason +
+          " · ב־Vercel: Settings → Environment Variables → DATABASE_URL (מחרוזת Neon), ואז Redeploy.";
       }
     }
   }
@@ -472,7 +483,7 @@
     root.appendChild(restore);
 
     var syncP = el("p", "muted tasks-remote-status");
-    syncP.textContent = syncLineText;
+    syncP.textContent = syncLineText + (lastDbHost ? " · מאגר: " + lastDbHost : "");
     root.appendChild(syncP);
   }
 

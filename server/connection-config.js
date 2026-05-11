@@ -20,8 +20,16 @@ function getPoolOptions() {
   var raw = process.env.DATABASE_URL;
   if (!raw) return null;
   var connectionString = sanitizeDatabaseUrl(raw);
-  var ssl = /^postgres/i.test(connectionString) ? { rejectUnauthorized: true } : false;
-  return { connectionString: connectionString, ssl: ssl };
+  var rejectUnauthorized = process.env.PG_SSL_REJECT_UNAUTHORIZED !== "0";
+  var ssl = /^postgres/i.test(connectionString) ? { rejectUnauthorized: rejectUnauthorized } : false;
+  var opts = { connectionString: connectionString, ssl: ssl };
+  /* Vercel serverless: one connection per invocation avoids pooler exhaustion. */
+  if (process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME) {
+    opts.max = 1;
+    opts.idleTimeoutMillis = 20000;
+    opts.connectionTimeoutMillis = 20000;
+  }
+  return opts;
 }
 
 /** User part of DATABASE_URL (for GRANT … TO "role"); no password. */

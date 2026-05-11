@@ -9,6 +9,8 @@ const mod = require("./app");
 async function main() {
   console.log("[budapest-api] Starting (packing + trip_day_meals + trip_tasks_state, ensureSeed + seeds) …");
   await mod.prepare();
+  var hostHint = typeof mod.databaseUrlHostHint === "function" ? mod.databaseUrlHostHint() : null;
+  if (hostHint) console.log("[budapest-api] DATABASE_URL host (compare with Vercel): " + hostHint);
   console.log("[budapest-api] public.trip_day_meals ready (10 rows seeded if new).");
   console.log("[budapest-api] Trip meals API: GET|PUT /api/trip-days/1..10/meals");
   console.log("[budapest-api] Tasks API: GET|PUT /api/tasks");
