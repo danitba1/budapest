@@ -8,7 +8,7 @@
   "functions": {
     "api/server.js": {
       "maxDuration": 30,
-      "includeFiles": ["server/**/*.js"]
+      "includeFiles": "server/**/*.js"
     }
   }
 }
