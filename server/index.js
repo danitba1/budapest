@@ -7,10 +7,11 @@ require("dotenv").config({ path: path.join(__dirname, ".env") });
 const mod = require("./app");
 
 async function main() {
-  console.log("[budapest-api] Starting (packing + trip_day_meals, ensureSeed + trip meals seed) …");
+  console.log("[budapest-api] Starting (packing + trip_day_meals + trip_tasks_state, ensureSeed + seeds) …");
   await mod.prepare();
   console.log("[budapest-api] public.trip_day_meals ready (10 rows seeded if new).");
   console.log("[budapest-api] Trip meals API: GET|PUT /api/trip-days/1..10/meals");
+  console.log("[budapest-api] Tasks API: GET|PUT /api/tasks");
 
   mod.app.listen(mod.PORT, function () {
     var staticDir = path.join(__dirname, "..");
@@ -23,7 +24,7 @@ async function main() {
 main().catch(function (e) {
   if (e && String(e.code) === "42501") {
     var m = String(e.message || "");
-    if (/packing_categories|packing_items|trip_day_meals|schema public/i.test(m)) {
+    if (/packing_categories|packing_items|trip_day_meals|trip_tasks_state|schema public/i.test(m)) {
       mod.logPackingPermissionHelp("Startup failed (PostgreSQL 42501)");
     }
   }

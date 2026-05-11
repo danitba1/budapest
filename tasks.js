@@ -1,5 +1,6 @@
 /**
- * רשימת משימות להזמנה מראש — סימון בוצע, הוספה/הסרה, שמירה ב-localStorage.
+ * רשימת משימות להזמנה מראש — סימון בוצע, הוספה/הסרה.
+ * מצב נשמר בשרת (PostgreSQL) ובמקביל ב-localStorage כגיבוי / מטמון.
  * פריטי "חובה" נמשכים מ-window.TRIP_DAY_PLAN (אחרי trip-days-data.js).
  */
 (function () {
@@ -7,6 +8,14 @@
   if (!root) return;
 
   var STORAGE_KEY = "budapest_tasks_v1";
+  var API_BASE = typeof window.PACK_API_BASE !== "undefined" ? window.PACK_API_BASE : "";
+  var TOKEN_KEY = "pack_api_token";
+
+  var memState = null;
+  var remoteWritesEnabled = false;
+  var syncLineText = "";
+  var saveTimer = null;
+  var lastServerUpdatedAt = null;
 
   var CORE_TASK_SEEDS = [
     {
@@ -20,6 +29,49 @@
         "<strong>לינה בבודפשט:</strong> דירה ברובע 7 (קרוב לבית כנסת קזינצ׳י).",
     },
   ];
+
+  function apiUrl(path) {
+    var base = API_BASE || "";
+    if (base.endsWith("/") && path.charAt(0) === "/") {
+      return base.slice(0, -1) + path;
+    }
+    return base + path;
+  }
+
+  function getAuthHeaders() {
+    var h = { Accept: "application/json" };
+    var t = localStorage.getItem(TOKEN_KEY);
+    if (t) h.Authorization = "Bearer " + t;
+    return h;
+  }
+
+  function getJsonHeaders() {
+    var h = getAuthHeaders();
+    h["Content-Type"] = "application/json";
+    return h;
+  }
+
+  async function apiFetch(path, options) {
+    var res = await fetch(apiUrl(path), options || {});
+    var bodyText = await res.text();
+    if (res.status === 401) {
+      var e401 = new Error("UNAUTHORIZED");
+      e401.status = 401;
+      throw e401;
+    }
+    if (!res.ok) {
+      var msg = bodyText;
+      try {
+        var ej = JSON.parse(bodyText);
+        if (ej && ej.error) msg = ej.error;
+      } catch (x) {
+        /* keep msg */
+      }
+      throw new Error((res.status + " " + msg).trim());
+    }
+    if (!bodyText) return {};
+    return JSON.parse(bodyText);
+  }
 
   function el(tag, cls, attrs) {
     var e = document.createElement(tag);
@@ -40,7 +92,7 @@
     return (d.textContent || d.innerText || "").replace(/\s+/g, " ").trim();
   }
 
-  function loadState() {
+  function loadLocalState() {
     try {
       var raw = localStorage.getItem(STORAGE_KEY);
       if (!raw) return { done: {}, hidden: [], custom: [] };
@@ -55,7 +107,24 @@
     }
   }
 
-  function saveState(state) {
+  function normalizeFromServer(data) {
+    if (!data || typeof data !== "object") return { done: {}, hidden: [], custom: [] };
+    return {
+      done: data.done && typeof data.done === "object" && !Array.isArray(data.done) ? data.done : {},
+      hidden: Array.isArray(data.hidden) ? data.hidden : [],
+      custom: Array.isArray(data.custom) ? data.custom : [],
+    };
+  }
+
+  function isEmptyState(s) {
+    if (!s) return true;
+    if (s.custom && s.custom.length) return false;
+    if (s.hidden && s.hidden.length) return false;
+    if (s.done && Object.keys(s.done).length) return false;
+    return true;
+  }
+
+  function saveLocalOnly(state) {
     try {
       localStorage.setItem(
         STORAGE_KEY,
@@ -67,6 +136,113 @@
       );
     } catch (err) {
       /* ignore quota */
+    }
+  }
+
+  function updateSyncLineInDom() {
+    var n = document.querySelector(".tasks-remote-status");
+    if (n) n.textContent = syncLineText;
+  }
+
+  function scheduleRemoteSave() {
+    if (!remoteWritesEnabled || !memState) return;
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(function () {
+      flushRemoteSave();
+    }, 200);
+  }
+
+  /** שמירה לפני סגירת לשונית — מפסיקה איבוד עקב debounce. */
+  function flushRemoteSaveKeepalive() {
+    if (!remoteWritesEnabled || !memState) return;
+    try {
+      fetch(apiUrl("/api/tasks"), {
+        method: "PUT",
+        headers: getJsonHeaders(),
+        body: JSON.stringify({
+          done: memState.done,
+          hidden: memState.hidden,
+          custom: memState.custom,
+        }),
+        keepalive: true,
+      }).catch(function () {});
+    } catch (e) {
+      /* ignore */
+    }
+  }
+
+  function persistState(state) {
+    saveLocalOnly(state);
+    scheduleRemoteSave();
+  }
+
+  async function flushRemoteSave() {
+    if (!remoteWritesEnabled || !memState) return;
+    try {
+      var putRes = await apiFetch("/api/tasks", {
+        method: "PUT",
+        headers: getJsonHeaders(),
+        body: JSON.stringify({
+          done: memState.done,
+          hidden: memState.hidden,
+          custom: memState.custom,
+        }),
+      });
+      if (putRes && putRes.updatedAt) lastServerUpdatedAt = putRes.updatedAt;
+      syncLineText = lastServerUpdatedAt
+        ? "נשמר בענן · עדכון אחרון בשרת: " + new Date(lastServerUpdatedAt).toLocaleString("he-IL")
+        : "נשמר בענן.";
+      updateSyncLineInDom();
+    } catch (e) {
+      syncLineText = "שמירה לשרת נכשלה — עדיין שמור מקומית.";
+      updateSyncLineInDom();
+    }
+  }
+
+  async function hydrateFromServer() {
+    remoteWritesEnabled = false;
+    syncLineText = "";
+    try {
+      var data = await apiFetch("/api/tasks", {
+        method: "GET",
+        headers: getAuthHeaders(),
+      });
+      if (data && data.updatedAt) lastServerUpdatedAt = data.updatedAt;
+      var serverNorm = normalizeFromServer(data);
+      var local = loadLocalState();
+      if (isEmptyState(serverNorm) && !isEmptyState(local)) {
+        memState = local;
+        var putData = await apiFetch("/api/tasks", {
+          method: "PUT",
+          headers: getJsonHeaders(),
+          body: JSON.stringify({
+            done: memState.done,
+            hidden: memState.hidden,
+            custom: memState.custom,
+          }),
+        });
+        if (putData && putData.updatedAt) lastServerUpdatedAt = putData.updatedAt;
+        saveLocalOnly(memState);
+        syncLineText = lastServerUpdatedAt
+          ? "מצב מהדפדפן הועבר לשרת · " + new Date(lastServerUpdatedAt).toLocaleString("he-IL")
+          : "מצב מהדפדפן הועבר לשרת.";
+      } else {
+        memState = serverNorm;
+        saveLocalOnly(memState);
+        syncLineText = lastServerUpdatedAt
+          ? "מסונכרן עם השרת · נטען מעדכון: " + new Date(lastServerUpdatedAt).toLocaleString("he-IL")
+          : "מסונכרן עם השרת — שינויים נשמרים בענן.";
+      }
+      remoteWritesEnabled = true;
+    } catch (err) {
+      memState = loadLocalState();
+      if (err && (err.message === "UNAUTHORIZED" || err.status === 401)) {
+        syncLineText =
+          "בעיית הרשאה ל־/api/tasks (נדיר). רעננו את הדף; אם נמשך — בדקו את השרת.";
+      } else {
+        syncLineText =
+          "אין גישה לשרת (למשל קובץ נפתח מהדיסק או השרת לא רץ) — המשימות נשמרות רק בדפדפן זה.";
+      }
     }
   }
 
@@ -102,13 +278,13 @@
     var ix = state.hidden.indexOf(id);
     if (hide && ix === -1) state.hidden.push(id);
     if (!hide && ix !== -1) state.hidden.splice(ix, 1);
-    saveState(state);
+    persistState(state);
   }
 
   function toggleDone(state, id, checked) {
     if (checked) state.done[id] = true;
     else delete state.done[id];
-    saveState(state);
+    persistState(state);
   }
 
   function renderItem(state, item, opts) {
@@ -178,11 +354,10 @@
           return c.id !== item.id;
         });
         delete state.done[item.id];
-        saveState(state);
+        persistState(state);
       } else {
-        setHidden(state, item.id, true);
         delete state.done[item.id];
-        saveState(state);
+        setHidden(state, item.id, true);
       }
       render();
     });
@@ -194,7 +369,8 @@
   }
 
   function render() {
-    var state = loadState();
+    if (!memState) return;
+    var state = memState;
     var plan = window.TRIP_DAY_PLAN || [];
     var mustItems = collectMustTasks(plan);
     root.textContent = "";
@@ -272,7 +448,7 @@
       if (!t) return;
       state.custom.push({ id: "custom-" + Date.now() + "-" + Math.random().toString(36).slice(2, 8), text: t });
       inp.value = "";
-      saveState(state);
+      persistState(state);
       render();
     }
     addBtn.addEventListener("click", doAdd);
@@ -290,10 +466,14 @@
     restore.textContent = "הצג שוב פריטים ברירת־מחדל שהוסרו";
     restore.addEventListener("click", function () {
       state.hidden = [];
-      saveState(state);
+      persistState(state);
       render();
     });
     root.appendChild(restore);
+
+    var syncP = el("p", "muted tasks-remote-status");
+    syncP.textContent = syncLineText;
+    root.appendChild(syncP);
   }
 
   function escapeHtml(s) {
@@ -304,5 +484,28 @@
       .replace(/"/g, "&quot;");
   }
 
-  render();
+  root.textContent = "";
+  var loadingP = el("p", "muted");
+  loadingP.textContent = "טוען משימות…";
+  root.appendChild(loadingP);
+
+  (async function boot() {
+    try {
+      await hydrateFromServer();
+    } finally {
+      loadingP.remove();
+      render();
+    }
+  })();
+
+  document.addEventListener("visibilitychange", function () {
+    if (document.visibilityState === "hidden") {
+      clearTimeout(saveTimer);
+      flushRemoteSaveKeepalive();
+    }
+  });
+  window.addEventListener("pagehide", function () {
+    clearTimeout(saveTimer);
+    flushRemoteSaveKeepalive();
+  });
 })();

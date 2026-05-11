@@ -1,5 +1,5 @@
 /**
- * Vercel Serverless Function — מעביר בקשות /api/* ל־Express (רשימת אריזה, ארוחות, health).
+ * Vercel Serverless Function — מעביר בקשות /api/* ל־Express (אריזה, ארוחות, משימות, health).
  */
 const path = require("path");
 require("dotenv").config({ path: path.join(__dirname, "..", "server", ".env") });
