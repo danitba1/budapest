@@ -62,7 +62,15 @@
       var msg = bodyText;
       try {
         var ej = JSON.parse(bodyText);
-        if (ej && ej.error) msg = ej.error;
+        if (ej && ej.error != null) {
+          var er = ej.error;
+          msg =
+            typeof er === "string"
+              ? er
+              : er && typeof er.message === "string"
+                ? er.message
+                : JSON.stringify(er);
+        }
       } catch (parseErr) {}
       var err = new Error((res.status + " " + (msg || res.statusText)).trim());
       err.status = res.status;

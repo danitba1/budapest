@@ -7,7 +7,7 @@ require("dotenv").config({ path: path.join(__dirname, ".env") });
 const mod = require("./app");
 
 async function main() {
-  console.log("[budapest-api] Starting (packing + trip_day_meals + trip_tasks_state, ensureSeed + seeds) …");
+  console.log("[budapest-api] Starting (trip_tasks_state + trip_day_meals seeds; packing seeds on first /api/pack) …");
   await mod.prepare();
   var hostHint = typeof mod.databaseUrlHostHint === "function" ? mod.databaseUrlHostHint() : null;
   if (hostHint) console.log("[budapest-api] DATABASE_URL host (compare with Vercel): " + hostHint);

@@ -65,7 +65,15 @@
       var msg = bodyText;
       try {
         var ej = JSON.parse(bodyText);
-        if (ej && ej.error) msg = ej.error;
+        if (ej && ej.error != null) {
+          var er = ej.error;
+          msg =
+            typeof er === "string"
+              ? er
+              : er && typeof er.message === "string"
+                ? er.message
+                : JSON.stringify(er);
+        }
       } catch (x) {
         /* keep msg */
       }

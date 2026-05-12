@@ -754,17 +754,10 @@ app.use(function (err, req, res, next) {
 var _prepared = false;
 async function prepare() {
   if (_prepared) return;
-  /* Trip tables first so /api/tasks works even if packing seed fails (e.g. grants only on trip_*). */
+  /* Packing uses ensurePackingReady on /api/pack only — do not run ensureSeed here or Vercel cold
+   * starts (often 10s cap) time out before /api/tasks while creating categories + default items. */
   await ensureTripTasksSeed();
   await ensureTripDayMealsSeed();
-  try {
-    await ensureSeed();
-  } catch (packErr) {
-    console.error(
-      "[budapest-api] ensureSeed (packing) failed — trip tasks/meals are ready; fix packing DB or run schema.sql:",
-      packErr && packErr.message ? packErr.message : packErr
-    );
-  }
   _prepared = true;
 }
 
