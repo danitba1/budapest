@@ -7,6 +7,7 @@ const express = require("express");
 const cors = require("cors");
 const { Pool } = require("pg");
 const { getPoolOptions, getDatabaseUserFromUrl } = require("./connection-config");
+const tripTasks = require("./trip-tasks-store");
 
 var PORT = parseInt(process.env.PORT || "3000", 10);
 var PACK_API_TOKEN = process.env.PACK_API_TOKEN || "";
@@ -146,61 +147,9 @@ var TRIP_DAY_MEALS_DDL_STATEMENTS = [
   "ALTER TABLE public.trip_day_meals ADD COLUMN IF NOT EXISTS general_notes TEXT NOT NULL DEFAULT ''",
 ];
 
-var TRIP_TASKS_DDL_STATEMENTS = [
-  "CREATE TABLE IF NOT EXISTS public.trip_tasks_state (" +
-    "id SMALLINT PRIMARY KEY DEFAULT 1 CHECK (id = 1)," +
-    "payload JSONB NOT NULL DEFAULT '{\"done\":{},\"hidden\":[],\"custom\":[]}'::jsonb," +
-    "updated_at TIMESTAMPTZ NOT NULL DEFAULT now()" +
-    ")",
-];
-
-async function ensureTripTasksSchema() {
-  var client = await pool.connect();
-  try {
-    await client.query("SET search_path TO public");
-    for (var t = 0; t < TRIP_TASKS_DDL_STATEMENTS.length; t++) {
-      await client.query(TRIP_TASKS_DDL_STATEMENTS[t]);
-    }
-  } finally {
-    client.release();
-  }
-}
-
 async function ensureTripTasksSeed() {
-  await ensureTripTasksSchema();
+  await tripTasks.ensureTripTasksSchema(pool);
   await pool.query("INSERT INTO public.trip_tasks_state (id) VALUES (1) ON CONFLICT (id) DO NOTHING");
-}
-
-/** מחזיר אובייקט { done, hidden, custom } תקין לשמירה ב־JSONB. */
-function sanitizeTasksPayload(body) {
-  if (!body || typeof body !== "object") return null;
-  var done = {};
-  if (body.done && typeof body.done === "object" && !Array.isArray(body.done)) {
-    var keys = Object.keys(body.done);
-    for (var di = 0; di < keys.length && di < 400; di++) {
-      var dk = String(keys[di]).slice(0, 300);
-      if (body.done[keys[di]] === true) done[dk] = true;
-    }
-  }
-  var hidden = [];
-  if (Array.isArray(body.hidden)) {
-    for (var hi = 0; hi < body.hidden.length && hi < 250; hi++) {
-      var hs = body.hidden[hi];
-      if (typeof hs === "string" && hs.length <= 300) hidden.push(hs);
-    }
-  }
-  var custom = [];
-  if (Array.isArray(body.custom)) {
-    for (var ci = 0; ci < body.custom.length && ci < 150; ci++) {
-      var c = body.custom[ci];
-      if (!c || typeof c !== "object") continue;
-      var id = c.id != null ? String(c.id).trim().slice(0, 120) : "";
-      var text = c.text != null ? String(c.text).trim().slice(0, 4000) : "";
-      if (!id || !text) continue;
-      custom.push({ id: id, text: text });
-    }
-  }
-  return { done: done, hidden: hidden, custom: custom };
 }
 
 async function ensureTripDayMealsSchema() {
@@ -468,33 +417,8 @@ app.get("/api/health", async function (req, res) {
 /* משימות טיול: ללא PACK_API_TOKEN — כדי שדף הבית יסתנכרן בין מכשירים בלי טופס מפתח (רשימת אריזה וארוחות עדיין מאובטחות). */
 app.get("/api/tasks", async function (req, res) {
   try {
-    await ensureTripTasksSchema();
-    var q = await pool.query("SELECT payload, updated_at FROM public.trip_tasks_state WHERE id = 1");
-    if (!q.rows.length) {
-      await pool.query("INSERT INTO public.trip_tasks_state (id) VALUES (1) ON CONFLICT (id) DO NOTHING");
-      q = await pool.query("SELECT payload, updated_at FROM public.trip_tasks_state WHERE id = 1");
-    }
-    var row = q.rows[0];
-    var payload = row.payload;
-    if (payload != null && typeof payload === "string") {
-      try {
-        payload = JSON.parse(payload);
-      } catch (parseErr) {
-        payload = {};
-      }
-    }
-    var norm = sanitizeTasksPayload({
-      done: payload && payload.done,
-      hidden: payload && payload.hidden,
-      custom: payload && payload.custom,
-    });
-    res.json({
-      done: norm.done,
-      hidden: norm.hidden,
-      custom: norm.custom,
-      updatedAt: row.updated_at,
-      dbHost: databaseUrlHostHint(),
-    });
+    var data = await tripTasks.getTripTasksJson(pool);
+    res.json(data);
   } catch (e) {
     console.error(e);
     var msg = String(e.message || e);
@@ -506,23 +430,12 @@ app.get("/api/tasks", async function (req, res) {
 });
 
 app.put("/api/tasks", async function (req, res) {
-  var norm = sanitizeTasksPayload(req.body);
-  if (!norm) return res.status(400).json({ error: "body must include done, hidden, custom (JSON)" });
   try {
-    await ensureTripTasksSchema();
-    var up = await pool.query(
-      "INSERT INTO public.trip_tasks_state (id, payload, updated_at) VALUES (1, $1::jsonb, now()) " +
-        "ON CONFLICT (id) DO UPDATE SET payload = EXCLUDED.payload, updated_at = now() " +
-        "RETURNING updated_at",
-      [JSON.stringify(norm)]
-    );
-    res.json({
-      done: norm.done,
-      hidden: norm.hidden,
-      custom: norm.custom,
-      updatedAt: up.rows[0].updated_at,
-      dbHost: databaseUrlHostHint(),
-    });
+    var result = await tripTasks.putTripTasksJson(pool, req.body);
+    if (result && result.badRequest) {
+      return res.status(400).json({ error: result.error });
+    }
+    res.json(result);
   } catch (e) {
     console.error(e);
     res.status(500).json({ error: String(e.message || e) });

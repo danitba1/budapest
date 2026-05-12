@@ -1,11 +1,19 @@
 {
   "rewrites": [
     {
+      "source": "/api/tasks",
+      "destination": "/api/tasks"
+    },
+    {
       "source": "/api/:path*",
       "destination": "/api/server"
     }
   ],
   "functions": {
+    "api/tasks.js": {
+      "maxDuration": 30,
+      "includeFiles": ["server/connection-config.js", "server/trip-tasks-store.js"]
+    },
     "api/server.js": {
       "maxDuration": 30,
       "includeFiles": "server/**/*.js"
