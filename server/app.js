@@ -224,6 +224,14 @@ async function ensureTripDayMealsSeed() {
   );
 }
 
+var _tripDayMealsApiReady = false;
+/** Once per process — trip-day routes must not re-run DDL on every request. */
+async function ensureTripDayMealsForApi() {
+  if (_tripDayMealsApiReady) return;
+  await ensureTripDayMealsSeed();
+  _tripDayMealsApiReady = true;
+}
+
 function logPackingPermissionHelp(title) {
   var role = getDatabaseUserFromUrl();
   var ident = role ? '"' + role.replace(/"/g, '""') + '"' : '"YOUR_APP_ROLE"';
@@ -529,6 +537,7 @@ app.get("/api/trip-days/:dayNumber/meals", async function (req, res) {
     return res.status(400).json({ error: "dayNumber must be integer 1–10" });
   }
   try {
+    await ensureTripDayMealsForApi();
     var q = await pool.query(
       "SELECT day_number, meal_1, meal_2, general_notes, updated_at FROM public.trip_day_meals WHERE day_number = $1",
       [d]
@@ -566,6 +575,7 @@ app.put("/api/trip-days/:dayNumber/meals", async function (req, res) {
     return res.status(400).json({ error: "text fields max 8000 characters each" });
   }
   try {
+    await ensureTripDayMealsForApi();
     var up = await pool.query(
       "INSERT INTO public.trip_day_meals (day_number, meal_1, meal_2, general_notes, updated_at) VALUES ($1, $2, $3, $4, now()) " +
         "ON CONFLICT (day_number) DO UPDATE SET meal_1 = EXCLUDED.meal_1, meal_2 = EXCLUDED.meal_2, " +
@@ -764,6 +774,7 @@ async function prepare() {
   lap("after trip_tasks seed");
   await ensureTripDayMealsSeed();
   lap("after trip_day_meals seed");
+  _tripDayMealsApiReady = true;
   _prepared = true;
   lap("complete totalMs=" + (Date.now() - t0));
 }

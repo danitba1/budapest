@@ -48,8 +48,14 @@ module.exports = async function handler(req, res) {
         var mod = require("../server/app");
         console.log("[api/server] server/app loaded in " + (Date.now() - tInit) + "ms");
         tInit = Date.now();
-        await mod.prepare();
-        console.log("[api/server] prepare() finished in " + (Date.now() - tInit) + "ms");
+        if (process.env.VERCEL) {
+          console.log(
+            "[api/server] Skipping prepare() on Vercel — DB DDL/seeds run on first use per route (faster cold start, avoids 504)."
+          );
+        } else {
+          await mod.prepare();
+          console.log("[api/server] prepare() finished in " + (Date.now() - tInit) + "ms");
+        }
         return serverless(mod.app);
       })();
     }
