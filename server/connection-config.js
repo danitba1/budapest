@@ -10,9 +10,18 @@ function sanitizeDatabaseUrl(url) {
   try {
     var u = new URL(url);
     u.searchParams.delete("channel_binding");
+    /* pg v8 warns: sslmode=require|prefer|verify-ca will change meaning in v9; verify-full matches today's behavior. */
+    var sslm = (u.searchParams.get("sslmode") || "").toLowerCase();
+    if (sslm === "require" || sslm === "prefer" || sslm === "verify-ca") {
+      u.searchParams.set("sslmode", "verify-full");
+    }
     return u.href;
   } catch (e) {
-    return url.replace(/[?&]channel_binding=[^&]*/gi, "").replace(/\?&/g, "?").replace(/[?]$/g, "");
+    return url
+      .replace(/[?&]channel_binding=[^&]*/gi, "")
+      .replace(/([?&])sslmode=(prefer|require|verify-ca)\b/gi, "$1sslmode=verify-full")
+      .replace(/\?&/g, "?")
+      .replace(/[?]$/g, "");
   }
 }
 
