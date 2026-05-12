@@ -69,10 +69,14 @@ module.exports = async function handler(req, res) {
     }
     return;
   }
+  var reqLogUrl = (req.method || "?") + " " + (req.url || "");
+  var reqLogT0 = Date.now();
   try {
-    return await h(req, res);
+    console.log("[api/server] req start " + reqLogUrl);
+    await h(req, res);
+    console.log("[api/server] req done " + reqLogUrl + " " + (Date.now() - reqLogT0) + "ms");
   } catch (e) {
-    console.error("[api/server] request error", e);
+    console.error("[api/server] request error after " + (Date.now() - reqLogT0) + "ms " + reqLogUrl, e);
     if (!res.headersSent) {
       res.status(500).json({ error: String(e.message || e) });
     }

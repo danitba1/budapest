@@ -29,11 +29,12 @@ function getPoolOptions() {
   var rejectUnauthorized = process.env.PG_SSL_REJECT_UNAUTHORIZED !== "0";
   var ssl = /^postgres/i.test(connectionString) ? { rejectUnauthorized: rejectUnauthorized } : false;
   var opts = { connectionString: connectionString, ssl: ssl };
-  /* Vercel serverless: one connection per invocation avoids pooler exhaustion. */
+  /* Vercel serverless: one connection per invocation avoids pooler exhaustion.
+   * connectionTimeoutMillis: avoid hanging until function maxDuration; prefer fast 500 + retry vs opaque timeout. */
   if (process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME) {
     opts.max = 1;
     opts.idleTimeoutMillis = 20000;
-    opts.connectionTimeoutMillis = 20000;
+    opts.connectionTimeoutMillis = parseInt(process.env.PG_CONNECTION_TIMEOUT_MS || "12000", 10) || 12000;
   }
   return opts;
 }

@@ -40,64 +40,71 @@ function readJsonBody(req) {
 }
 
 module.exports = async function tasksHandler(req, res) {
+  var reqLog = (req.method || "?") + " " + (req.url || "");
+  var t0 = Date.now();
+  console.log("[api/tasks] req start " + reqLog);
   try {
-    if (typeof logDatabaseEnvDiagnostics === "function") {
-      logDatabaseEnvDiagnostics("[api/tasks] ");
+    try {
+      if (typeof logDatabaseEnvDiagnostics === "function") {
+        logDatabaseEnvDiagnostics("[api/tasks] ");
+      }
+    } catch (eLog) {
+      /* ignore */
     }
-  } catch (eLog) {
-    /* ignore */
-  }
 
-  res.setHeader("Content-Type", "application/json; charset=utf-8");
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Credentials", "true");
+    res.setHeader("Content-Type", "application/json; charset=utf-8");
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Credentials", "true");
 
-  var method = (req.method || "GET").toUpperCase();
-  if (method === "OPTIONS") {
-    res.setHeader("Access-Control-Allow-Methods", "GET, PUT, OPTIONS");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, Accept");
-    res.statusCode = 204;
-    res.end();
-    return;
-  }
-
-  var pool;
-  try {
-    pool = getPool();
-  } catch (e) {
-    res.statusCode = 500;
-    res.end(JSON.stringify({ error: String(e.message || e) }));
-    return;
-  }
-
-  try {
-    if (method === "GET") {
-      var data = await tripTasks.getTripTasksJson(pool);
-      res.statusCode = 200;
-      res.end(JSON.stringify(data));
+    var method = (req.method || "GET").toUpperCase();
+    if (method === "OPTIONS") {
+      res.setHeader("Access-Control-Allow-Methods", "GET, PUT, OPTIONS");
+      res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, Accept");
+      res.statusCode = 204;
+      res.end();
       return;
     }
-    if (method === "PUT") {
-      var body = await readJsonBody(req);
-      var putResult = await tripTasks.putTripTasksJson(pool, body);
-      if (putResult && putResult.badRequest) {
-        res.statusCode = 400;
-        res.end(JSON.stringify({ error: putResult.error }));
+
+    var pool;
+    try {
+      pool = getPool();
+    } catch (e) {
+      res.statusCode = 500;
+      res.end(JSON.stringify({ error: String(e.message || e) }));
+      return;
+    }
+
+    try {
+      if (method === "GET") {
+        var data = await tripTasks.getTripTasksJson(pool);
+        res.statusCode = 200;
+        res.end(JSON.stringify(data));
         return;
       }
-      res.statusCode = 200;
-      res.end(JSON.stringify(putResult));
-      return;
+      if (method === "PUT") {
+        var body = await readJsonBody(req);
+        var putResult = await tripTasks.putTripTasksJson(pool, body);
+        if (putResult && putResult.badRequest) {
+          res.statusCode = 400;
+          res.end(JSON.stringify({ error: putResult.error }));
+          return;
+        }
+        res.statusCode = 200;
+        res.end(JSON.stringify(putResult));
+        return;
+      }
+      res.statusCode = 405;
+      res.end(JSON.stringify({ error: "Method Not Allowed" }));
+    } catch (e) {
+      console.error("[api/tasks] error", e);
+      var msg = String(e.message || e);
+      if (/relation .* does not exist/i.test(msg)) {
+        msg += " — הריצו npm start או schema.sql ב־Neon.";
+      }
+      res.statusCode = 500;
+      res.end(JSON.stringify({ error: msg }));
     }
-    res.statusCode = 405;
-    res.end(JSON.stringify({ error: "Method Not Allowed" }));
-  } catch (e) {
-    console.error("[api/tasks] error", e);
-    var msg = String(e.message || e);
-    if (/relation .* does not exist/i.test(msg)) {
-      msg += " — הריצו npm start או schema.sql ב־Neon.";
-    }
-    res.statusCode = 500;
-    res.end(JSON.stringify({ error: msg }));
+  } finally {
+    console.log("[api/tasks] req end " + reqLog + " " + (Date.now() - t0) + "ms");
   }
 };
