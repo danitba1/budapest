@@ -3,6 +3,7 @@
  * listen: ראה index.js · Vercel: api/server.js (serverless-http).
  */
 const path = require("path");
+const fs = require("fs");
 const express = require("express");
 const cors = require("cors");
 const { Pool } = require("pg");
@@ -667,7 +668,21 @@ app.post("/api/pack/fill-defaults", async function (req, res) {
 });
 
 var staticDir = path.join(__dirname, "..");
+var distDir = path.join(staticDir, "dist");
+if (fs.existsSync(path.join(distDir, "index.html"))) {
+  app.use(express.static(distDir));
+}
 app.use(express.static(staticDir));
+
+app.use(function (req, res, next) {
+  if (req.method !== "GET" && req.method !== "HEAD") return next();
+  if (req.path.startsWith("/api")) return next();
+  var spaIndex = path.join(distDir, "index.html");
+  if (fs.existsSync(spaIndex)) {
+    return res.sendFile(spaIndex);
+  }
+  next();
+});
 
 app.use(function (err, req, res, next) {
   console.error(err);

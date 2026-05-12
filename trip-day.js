@@ -1,6 +1,8 @@
+import { TRIP_DAY_PLAN, TRIP_DAY_EXTRAS, buildTripRowWazeHref } from "./trip-days-data.js";
+
 (function () {
   var root = document.getElementById("trip-day-root");
-  if (!root || !window.TRIP_DAY_PLAN) return;
+  if (!root || !TRIP_DAY_PLAN || !TRIP_DAY_PLAN.length) return;
 
   var API_BASE = typeof window.PACK_API_BASE !== "undefined" ? window.PACK_API_BASE : "";
   var TOKEN_KEY = "pack_api_token";
@@ -114,13 +116,13 @@
   }
 
   function render() {
-    var plan = window.TRIP_DAY_PLAN[currentDay - 1];
+    var plan = TRIP_DAY_PLAN[currentDay - 1];
     if (!plan) {
       root.textContent = "יום לא קיים.";
       return;
     }
 
-    var extras = (window.TRIP_DAY_EXTRAS && window.TRIP_DAY_EXTRAS[String(currentDay)]) || {};
+    var extras = (TRIP_DAY_EXTRAS && TRIP_DAY_EXTRAS[String(currentDay)]) || {};
 
     document.title = plan.title + " – משפחת בן אדמון";
     var heroTitle = document.getElementById("trip-day-hero-title");
@@ -134,7 +136,7 @@
     lab.textContent = "בחירת יום:";
     var sel = el("select", "trip-day-select", { id: "trip-day-select" });
     for (var i = 1; i <= 10; i++) {
-      var p0 = window.TRIP_DAY_PLAN[i - 1];
+      var p0 = TRIP_DAY_PLAN[i - 1];
       var opt = el("option", null, { value: String(i), text: "יום " + i + " — " + (p0.title.split("–")[1] || p0.title).trim() });
       if (i === currentDay) opt.selected = true;
       sel.appendChild(opt);

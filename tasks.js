@@ -1,7 +1,9 @@
+import { TRIP_DAY_PLAN, buildTripRowWazeHref } from "./trip-days-data.js";
+
 /**
  * רשימת משימות להזמנה מראש — סימון בוצע, הוספה/הסרה.
  * מצב נשמר בשרת (PostgreSQL) ובמקביל ב-localStorage כגיבוי / מטמון.
- * פריטי "חובה" נמשכים מ-window.TRIP_DAY_PLAN (אחרי trip-days-data.js).
+ * פריטי "חובה" נמשכים מ-TRIP_DAY_PLAN (אחרי trip-days-data.js).
  */
 (function () {
   var root = document.getElementById("tasks-root");
@@ -16,8 +18,6 @@
   var syncLineText = "";
   var saveTimer = null;
   var lastServerUpdatedAt = null;
-  /** Hostname from API — compare Vercel vs localhost; must match for one shared DB. */
-  var lastDbHost = null;
 
   var CORE_TASK_SEEDS = [
     {
@@ -151,7 +151,7 @@
 
   function updateSyncLineInDom() {
     var n = document.querySelector(".tasks-remote-status");
-    if (n) n.textContent = syncLineText + (lastDbHost ? " · מאגר: " + lastDbHost : "");
+    if (n) n.textContent = syncLineText;
   }
 
   function scheduleRemoteSave() {
@@ -199,7 +199,6 @@
         }),
       });
       if (putRes && putRes.updatedAt) lastServerUpdatedAt = putRes.updatedAt;
-      if (putRes && putRes.dbHost) lastDbHost = putRes.dbHost;
       syncLineText = lastServerUpdatedAt
         ? "נשמר בענן · עדכון אחרון בשרת: " + new Date(lastServerUpdatedAt).toLocaleString("he-IL")
         : "נשמר בענן.";
@@ -228,14 +227,12 @@
   async function hydrateFromServer() {
     remoteWritesEnabled = false;
     syncLineText = "";
-    lastDbHost = null;
     try {
       var data = await apiFetch("/api/tasks", {
         method: "GET",
         headers: getAuthHeaders(),
       });
       if (data && data.updatedAt) lastServerUpdatedAt = data.updatedAt;
-      if (data && data.dbHost) lastDbHost = data.dbHost;
       var serverNorm = normalizeFromServer(data);
       var local = loadLocalState();
       if (isEmptyState(serverNorm) && !isEmptyState(local)) {
@@ -250,7 +247,6 @@
           }),
         });
         if (putData && putData.updatedAt) lastServerUpdatedAt = putData.updatedAt;
-        if (putData && putData.dbHost) lastDbHost = putData.dbHost;
         saveLocalOnly(memState);
         syncLineText = lastServerUpdatedAt
           ? "מצב מהדפדפן הועבר לשרת · " + new Date(lastServerUpdatedAt).toLocaleString("he-IL")
@@ -264,7 +260,6 @@
       }
       remoteWritesEnabled = true;
     } catch (err) {
-      lastDbHost = null;
       memState = loadLocalState();
       var reason = err && err.message ? String(err.message) : String(err);
       if (reason.length > 220) reason = reason.slice(0, 217) + "…";
@@ -404,7 +399,7 @@
   function render() {
     if (!memState) return;
     var state = memState;
-    var plan = window.TRIP_DAY_PLAN || [];
+    var plan = TRIP_DAY_PLAN || [];
     var mustItems = collectMustTasks(plan);
     root.textContent = "";
 
@@ -505,7 +500,7 @@
     root.appendChild(restore);
 
     var syncP = el("p", "muted tasks-remote-status");
-    syncP.textContent = syncLineText + (lastDbHost ? " · מאגר: " + lastDbHost : "");
+    syncP.textContent = syncLineText;
     root.appendChild(syncP);
   }
 

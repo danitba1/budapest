@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>בתי כנסת בבודפשט (שבת) – משפחת בן אדמון</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body id="top">
+  <button
+    type="button"
+    class="menu-toggle"
+    id="menu-toggle"
+    data-menu-toggle
+    aria-expanded="false"
+    aria-controls="site-drawer"
+  >
+    <span class="menu-toggle__bars" aria-hidden="true"></span>
+    <span class="visually-hidden">פתיחה וסגירה של תפריט האתר</span>
+  </button>
+
+  <div class="site-drawer-overlay" data-menu-overlay aria-hidden="true"></div>
+
+  <nav id="site-drawer" class="site-drawer" data-menu-drawer aria-label="תפריט צד">
+    <div class="site-drawer__head">
+      <span class="site-drawer__title">ניווט</span>
+      <button type="button" class="site-drawer__close" data-menu-close aria-label="סגירת תפריט">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <ul class="site-drawer__list">
+      <li><a class="site-drawer__link" href="index.html">דף הבית – תכנית הטיול</a></li>
+      <li><a class="site-drawer__link" href="index.html#prep-title">דגשים לפני שיוצאים</a></li>
+      <li><a class="site-drawer__link" href="index.html#plan-title">תכנית לפי ימים</a></li>
+      <li><a class="site-drawer__link" href="trip-day.html?day=1">עמוד מפורט לכל יום</a></li>
+      <li><a class="site-drawer__link" href="index.html#tasks-title">משימות להזמנה מראש</a></li>
+      <li><a class="site-drawer__link" href="kosher-budapest.html">כשרות בבודפשט</a></li>
+      <li><a class="site-drawer__link site-drawer__link--current" href="synagogues-budapest.html" aria-current="page">בתי כנסת (שבת)</a></li>
+      <li><a class="site-drawer__link" href="synagogues-budapest.html#triangle-title">משולש בתי הכנסת – רובע 7</a></li>
+      <li><a class="site-drawer__link" href="synagogues-budapest.html#buda-title">בודה – בית כנסת פרנקל ליאו</a></li>
+      <li><a class="site-drawer__link" href="hotels.html">מקומות לינה</a></li>
+      <li><a class="site-drawer__link" href="packing.html">רשימת אריזה</a></li>
+    </ul>
+  </nav>
+
+  <header
+    class="hero hero--compact"
+    role="banner"
+    style="--hero-image: url('https://images.unsplash.com/photo-1467269204594-9663b058059c?auto=format&amp;fit=crop&amp;w=1600&amp;q=80');"
+  >
+    <div class="hero__bg" aria-hidden="true"></div>
+    <div class="hero__overlay" aria-hidden="true"></div>
+    <div class="hero__inner">
+      <p class="hero__kicker">בודפשט · שבת · קהילות</p>
+      <h1 class="hero__title">בתי כנסת בבודפשט</h1>
+      <p class="hero__tagline">כתובות, מרחק מהדירה, זרם דתי והקשר היסטורי — לתכנון שבת</p>
+      <a class="hero__cta hero__cta--ghost" href="index.html">חזרה לתכנית הטיול</a>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <nav class="main-nav" aria-label="ניווט ראשי">
+      <a class="main-nav__link" href="index.html">תכנית הטיול</a>
+      <a class="main-nav__link" href="trip-day.html?day=1">ימים בטיול</a>
+      <a class="main-nav__link" href="kosher-budapest.html">כשרות בבודפשט</a>
+      <a class="main-nav__link main-nav__link--current" href="synagogues-budapest.html" aria-current="page">בתי כנסת</a>
+      <a class="main-nav__link" href="hotels.html">מקומות לינה</a>
+      <a class="main-nav__link" href="packing.html">רשימת אריזה</a>
+    </nav>
+
+    <p class="page-lede">
+      בבודפשט מסורת ארוכה של <strong>שלושה זרמים עיקריים</strong> מאז הקונגרס היהודי בהונגריה (1869): <strong>אורתודוקסים</strong>,
+      <strong>נאולוגים</strong> (הזרם הלא־אורתודוקסי המרכזי — קרוב לרוח קונסרבטיבית; <em>לא</em> זהה ל«רפורמי» האמריקאי),
+      ו<strong>סטטוס קוו אנטה</strong> (ביניים ששמר על נוסח ומנהגים קדם־«רפורמיים» מסוימים). שלושה בתי כנסת מפורסמים ברובע 7 יוצרים את
+      «משולש בתי הכנסת» ליד הדירה (<a href="hotels.html#budapest-title">נג׳י דיופה 16</a>). לפני שבת: <strong>לוודא באתר הרשמי או בטלפון</strong>
+      שעות תפילה, כרטיסים (אם יש), כניסה לנשים ומחיצה — הם משתנים לפי עונה ואירועים.
+    </p>
+
+    <section class="kosher-section" aria-labelledby="triangle-title">
+      <h2 id="triangle-title" class="section-heading">משולש בתי הכנסת — רובע 7 (ארז׳בטווארוש)</h2>
+
+      <article class="kosher-card">
+        <div class="kosher-card__media">
+          <img
+            class="kosher-card__img"
+            src="https://images.unsplash.com/photo-1576045057995-568f588f82b2?auto=format&amp;fit=crop&amp;w=320&amp;h=320&amp;q=80"
+            width="160"
+            height="160"
+            alt="אדריכלות של בית כנסת היסטורי"
+            loading="lazy"
+          />
+        </div>
+        <div class="kosher-card__body">
+          <div class="kosher-card__head">
+            <div class="kosher-card__title-row">
+              <h3 class="kosher-card__title">בית הכנסת הגדול בדוהאני (Great Synagogue)</h3>
+              <span class="kosher-badge kosher-badge--neolog">נאולוג</span>
+              <span class="kosher-badge kosher-badge--info">מוזיאון + תפילה</span>
+              <span class="kosher-card__walk" title="מהדירה: Nagy Diófa utca 16, 1072">כ־6 דק׳ ברגל</span>
+            </div>
+            <div class="kosher-card__subcard">
+              <p class="kosher-card__meters">כ־520 מ׳ מהדירה (<a href="hotels.html#budapest-title">נג׳י דיופה 16</a>) — לפי מפה, לא GPS.</p>
+              <p class="kosher-card__parking"><strong>חניה:</strong> אזור דוהאני עמוס; רחוב וחניונים בתשלום לפי שלטים.</p>
+            </div>
+          </div>
+          <p class="kosher-card__meta">
+            <strong>כתובת:</strong> Dohány utca 2, Budapest 1074
+            <a class="kosher-card__link" href="https://www.google.com/maps/search/?api=1&amp;query=Dohany+utca+2,+Budapest" target="_blank" rel="noopener noreferrer">מפה</a>
+          </p>
+          <p class="kosher-card__food">
+            <strong>זרם וסגנון:</strong> בית הכנסת של הקהילה הנאולוגית המרכזית (MAZSihSz). זהו בית הכנסת הגדול באירופה; חלק מהזמן הוא גם
+            <strong>אתר מורשת ותיירות</strong> (כרטיס כניסה, סיורים). לתפילת שבת וחג — לבדוק מראש באתר את מדיניות הכניסה, מקומות ישיבה
+            (כולל אזורים נפרדים/מחיצה אם קיימים) ושעות מדויקות.
+          </p>
+          <p class="kosher-card__meta">
+            <strong>שבת ומבנה:</strong> לרוב יש מניין ותפילות בשבת; בשעות חול פעילות המבנה כמוזיאון. בקיץ ובחגים העומס גבוה — כדאי להגיע מוקדם או לשריין.
+          </p>
+          <a class="kosher-card__link" href="https://www.mazsihisz.hu/" target="_blank" rel="noopener noreferrer">MAZSihSz — הקהילה והאתר הרשמי</a>
+        </div>
+      </article>
+
+      <article class="kosher-card">
+        <div class="kosher-card__media">
+          <img
+            class="kosher-card__img"
+            src="https://images.unsplash.com/photo-1515542622106-78bda8ba0e5b?auto=format&amp;fit=crop&amp;w=320&amp;h=320&amp;q=80"
+            width="160"
+            height="160"
+            alt="קשתות ועמודים בסגנון ניאו־מורי"
+            loading="lazy"
+          />
+        </div>
+        <div class="kosher-card__body">
+          <div class="kosher-card__head">
+            <div class="kosher-card__title-row">
+              <h3 class="kosher-card__title">בית הכנסת ברומבך (Rumbach utcai zsinagóga)</h3>
+              <span class="kosher-badge kosher-badge--statusquo">סטטוס קוו אנטה</span>
+              <span class="kosher-badge kosher-badge--info">תרבות + תפילה</span>
+              <span class="kosher-card__walk" title="מהדירה: Nagy Diófa utca 16, 1072">כ־6 דק׳ ברגל</span>
+            </div>
+            <div class="kosher-card__subcard">
+              <p class="kosher-card__meters">כ־500 מ׳ מהדירה (<a href="hotels.html#budapest-title">נג׳י דיופה 16</a>) — לפי מפה, לא GPS.</p>
+              <p class="kosher-card__parking"><strong>חניה:</strong> מרכז רובע 7 — לפי שלטים וחניונים בסביבה.</p>
+            </div>
+          </div>
+          <p class="kosher-card__meta">
+            <strong>כתובת:</strong> Rumbach Sebestyén utca 11–13, Budapest 1075
+            <a class="kosher-card__link" href="https://www.google.com/maps/search/?api=1&amp;query=Rumbach+Sebestyen+utca+11,+Budapest" target="_blank" rel="noopener noreferrer">מפה</a>
+          </p>
+          <p class="kosher-card__food">
+            <strong>זרם וסגנון:</strong> נבנה במאה ה־19 עבור קהילת <strong>סטטוס קוו אנטה</strong> — זרם «אמצעי» בין נאולוג לאורתודוקסיה
+            ההונגרית של אז. אחרי שיקום ארוך נפתח מחדש כמרחב <strong>קדוש, תרבותי וקהילתי</strong>. עיצוב ניאו־מורי מאת אוטו וגנר; אולם תפילה אוקטגונלי עם בימה מרכזית.
+            לוח שבת ואירועים משתנה — לאמת מול האתר.
+          </p>
+          <a class="kosher-card__link" href="https://rumbachzsinagoga.hu/en/" target="_blank" rel="noopener noreferrer">אתר בית הכנסת ברומבך</a>
+        </div>
+      </article>
+
+      <article class="kosher-card">
+        <div class="kosher-card__media">
+          <img
+            class="kosher-card__img"
+            src="https://images.unsplash.com/photo-1564501049419-61e2eee2de5a?auto=format&amp;fit=crop&amp;w=320&amp;h=320&amp;q=80"
+            width="160"
+            height="160"
+            alt="מבנה היסטורי בבודפשט"
+            loading="lazy"
+          />
+        </div>
+        <div class="kosher-card__body">
+          <div class="kosher-card__head">
+            <div class="kosher-card__title-row">
+              <h3 class="kosher-card__title">בית הכנסת האורתודוקסי בקזינצי</h3>
+              <span class="kosher-badge kosher-badge--orthodox">אורתודוקסי</span>
+              <span class="kosher-badge kosher-badge--info">קהילה פעילה</span>
+              <span class="kosher-card__walk" title="מהדירה: Nagy Diófa utca 16, 1072">כ־9 דק׳ ברגל</span>
+            </div>
+            <div class="kosher-card__subcard">
+              <p class="kosher-card__meters">כ־730 מ׳ מהדירה (<a href="hotels.html#budapest-title">נג׳י דיופה 16</a>) — לפי מפה, לא GPS.</p>
+              <p class="kosher-card__parking"><strong>חניה:</strong> אזור קזינצי עמוס בערב ובסופ״ש; כניסה לעיתים מרחוב דוב (Dob utca) — לפי שלטים.</p>
+            </div>
+          </div>
+          <p class="kosher-card__meta">
+            <strong>כתובת:</strong> Kazinczy utca 29–31, Budapest 1075 <span class="muted">(לעיתים כניסה מצד Dob utca)</span>
+            <a class="kosher-card__link" href="https://www.google.com/maps/search/?api=1&amp;query=Kazinczy+utca+29,+Budapest" target="_blank" rel="noopener noreferrer">מפה</a>
+          </p>
+          <p class="kosher-card__food">
+            <strong>זרם וסגנון:</strong> <strong>אורתודוקסי</strong> הונגרי (MAOIH — האגודה האורתודוקסית העצמאית). מתחם כולל בית כנסת בסגנון ארט נובו,
+            לעיתים בית מדרש, מוסדות קהילה ומטבח כשר בסביבה — לפי פרסומי הקהילה. מתאים למי שמחפש <strong>נוסח אשכנזי אורתודוקסי</strong> סמוך לדירה.
+          </p>
+          <p class="kosher-card__meta">
+            <strong>שבת:</strong> מקום פעיל לתפילה; שעות ביקור בחול שונות משבת — לבדוק באתר או בטלפון לפני הכניסה.
+          </p>
+          <a class="kosher-card__link" href="https://maoih.hu/synagogues/kazinczy-street-synagogue/" target="_blank" rel="noopener noreferrer">MAOIH — בית הכנסת בקזינצי</a>
+        </div>
+      </article>
+    </section>
+
+    <section class="kosher-section" aria-labelledby="buda-title">
+      <h2 id="buda-title" class="section-heading">בודה — בית כנסת נאולוג נוסף</h2>
+
+      <article class="kosher-card">
+        <div class="kosher-card__media">
+          <img
+            class="kosher-card__img"
+            src="https://images.unsplash.com/photo-1467269204594-9663b058059c?auto=format&amp;fit=crop&amp;w=320&amp;h=320&amp;q=80"
+            width="160"
+            height="160"
+            alt="גג וצלעות אבן של מבנה ישן"
+            loading="lazy"
+          />
+        </div>
+        <div class="kosher-card__body">
+          <div class="kosher-card__head">
+            <div class="kosher-card__title-row">
+              <h3 class="kosher-card__title">בית הכנסת פרנקל ליאו (Frankel Leo úti zsinagóga)</h3>
+              <span class="kosher-badge kosher-badge--neolog">נאולוג</span>
+              <span class="kosher-badge kosher-badge--info">בודה · II</span>
+              <span class="kosher-card__walk" title="מהדירה: Nagy Diófa utca 16, 1072">כ־28 דק׳ ברגל</span>
+            </div>
+            <div class="kosher-card__subcard">
+              <p class="kosher-card__meters">כ־2,400 מ׳ מהדירה (<a href="hotels.html#budapest-title">נג׳י דיופה 16</a>) — מעבר הנהר לבודה; לפי מפה, לא GPS.</p>
+              <p class="kosher-card__parking"><strong>חניה:</strong> שכונת פרנקל ליאו — חניה בשכונה; לשקול תחבורה ציבורית (טראם/אוטובוס) מהרובע 7.</p>
+            </div>
+          </div>
+          <p class="kosher-card__meta">
+            <strong>כתובת:</strong> Frankel Leó út 49, Budapest 1025
+            <a class="kosher-card__link" href="https://www.google.com/maps/search/?api=1&amp;query=Frankel+Leo+ut+49,+Budapest" target="_blank" rel="noopener noreferrer">מפה</a>
+          </p>
+          <p class="kosher-card__food">
+            <strong>זרם וסגנון:</strong> קהילה <strong>נאולוגית</strong> בבודה (רובע II), נוסח אשכנזי — שונה מהאורתודוקסיה בקזינצי אך גם שונה מ«רפורמי» אמריקאי קלאסי.
+            בית כנסת פעיל עם חיי קהילה, חינוך ואירועי שבת וחג לפי פרסומי הקהילה.
+          </p>
+          <p class="kosher-card__meta">
+            <strong>טלפון (לפי פרסום באתר):</strong> ‎+36 1 326 1445‎ · ‎+36 30 409 9045‎ — לוודא שעות תפילה ושבת לפני הגעה.
+          </p>
+          <a class="kosher-card__link" href="https://www.frankel.hu/" target="_blank" rel="noopener noreferrer">אתר בית הכנסת פרנקל ליאו (frankel.hu)</a>
+        </div>
+      </article>
+    </section>
+
+    <section class="kosher-section" aria-labelledby="shabbat-tips-title">
+      <h2 id="shabbat-tips-title" class="section-heading">דגשים כלליים לשבת בבודפשט</h2>
+      <div class="tasks-box">
+        <ol>
+          <li><strong>«רפורמי» לעומת נאולוג:</strong> בבודפשט אין בדרך־כלל קהילה «רפורמית» אמריקאית גדולה כמו בברלין או בלונדון. הזרם הלא־אורתודוקסי המרכזי הוא <strong>נאולוג</strong> — מסורת מעורבת עם שינויים היסטוריים מסוימים (למשל מושבים מעורבים באתרים תיירותיים, אורגן בבית הכנסת הגדול). לאורתודוקסים מחמירים — בית הכנסת בקזינצי או חב״ד הם לרוב הבחירה המובנית.</li>
+          <li><strong>ביטחון וכניסה:</strong> באתרים מרכזיים ייתכנו בידוק תיקים ושמירה בשעות תיירות; בשבת עצמה הכללים שונים — לשאול מראש.</li>
+          <li><strong>עירוב ושעות:</strong> לשאלות הלכתיות (עירוב, זמני שבת מקומיים) — אתרי חב״ד או רבני הקהילה; באתר <a href="https://chabadhungary.com/" target="_blank" rel="noopener noreferrer">Chabad Hungary</a> יש לעיתים מידע על שבת בבודפשט.</li>
+          <li><strong>תמונות בכרטיסים:</strong> תמונות Unsplash בדף זה להמחשה בלבד ואינן צילומים רשמיים של כל בית כנסת.</li>
+        </ol>
+      </div>
+    </section>
+
+    <p class="kosher-footnote muted">
+      המידע אינו תחליף לאישור מהקהילה או מאתר הרשמי. זמני תפילה, כרטיסים ומדיניות כניסה משתנים — לוודא לפני נסיעה.
+    </p>
+
+    <footer class="site-footer">
+      <a class="site-footer__top" href="#top">חזרה למעלה ↑</a>
+      <p class="site-footer__line">אתר פרטי למשפחה בן אדמון · בתי כנסת בבודפשט</p>
+    </footer>
+  </div>
+  <script src="menu.js" defer></script>
+</body>
+</html>

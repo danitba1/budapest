@@ -1,12 +1,11 @@
 /**
  * תכנית ימים (טבלה) + תוספות (המלצות, כבישים) — מסונכנים עם index.html.
  * trip-day.js קורא window.TRIP_DAY_PLAN ו-window.TRIP_DAY_EXTRAS (כולל navigation, recommendations, roads).
- * לכל שורה אפשר wazeQuery (חיפוש) או wazeLl ("lat,lon") — window.buildTripRowWazeHref(row).
+ * לכל שורה אפשר wazeQuery (חיפוש) או wazeLl ("lat,lon") — buildTripRowWazeHref(row).
  */
-(function () {
-  var P = [];
+const P = [];
 
-  P.push({
+P.push({
     day: 1,
     title: "יום 1 · יום ראשון – בודפשט → בלד (סלובניה)",
     rows: [
@@ -338,7 +337,7 @@
     ],
   });
 
-  var E = {
+const E = {
     "1": {
       navigation:
         "<div class=\"trip-extra-prose\"><strong>זמני נסיעה משוערים (ברכב, ללא עצירות ארוכות):</strong>" +
@@ -509,7 +508,7 @@
    * קישור Waze לניווט: מעדיף wazeLl ("lat,lon") ואם אין — wazeQuery (טקסט חיפוש).
    * https://developers.google.com/waze/deeplinks
    */
-  function buildTripRowWazeHref(row) {
+function buildTripRowWazeHref(row) {
     if (!row) return null;
     if (row.wazeLl) {
       var parts = String(row.wazeLl)
@@ -533,7 +532,7 @@
     return null;
   }
 
-  function augmentIndexDayTablesWithWaze() {
+function augmentIndexDayTablesWithWaze() {
     if (typeof document === "undefined" || !document.querySelector) return;
     if (!document.getElementById("day1")) return;
     var cards = document.querySelectorAll("article.day-card[id^='day']");
@@ -579,11 +578,7 @@
     });
   }
 
-  window.buildTripRowWazeHref = buildTripRowWazeHref;
-  window.TRIP_DAY_PLAN = P;
-  window.TRIP_DAY_EXTRAS = E;
-
-  function augmentIndexDayCardsWithNavigation() {
+function augmentIndexDayCardsWithNavigation() {
     if (typeof document === "undefined" || !document.querySelector) return;
     if (!document.getElementById("day1")) return;
     for (var dn = 1; dn <= 10; dn++) {
@@ -610,6 +605,6 @@
     }
   }
 
-  augmentIndexDayTablesWithWaze();
-  augmentIndexDayCardsWithNavigation();
-})();
+export const TRIP_DAY_PLAN = P;
+export const TRIP_DAY_EXTRAS = E;
+export { buildTripRowWazeHref, augmentIndexDayTablesWithWaze, augmentIndexDayCardsWithNavigation };

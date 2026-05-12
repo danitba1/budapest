@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>מקומות לינה – משפחת בן אדמון</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body id="top">
+  <button
+    type="button"
+    class="menu-toggle"
+    id="menu-toggle"
+    data-menu-toggle
+    aria-expanded="false"
+    aria-controls="site-drawer"
+  >
+    <span class="menu-toggle__bars" aria-hidden="true"></span>
+    <span class="visually-hidden">פתיחה וסגירה של תפריט האתר</span>
+  </button>
+
+  <div class="site-drawer-overlay" data-menu-overlay aria-hidden="true"></div>
+
+  <nav id="site-drawer" class="site-drawer" data-menu-drawer aria-label="תפריט צד">
+    <div class="site-drawer__head">
+      <span class="site-drawer__title">ניווט</span>
+      <button type="button" class="site-drawer__close" data-menu-close aria-label="סגירת תפריט">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <ul class="site-drawer__list">
+      <li><a class="site-drawer__link" href="index.html">דף הבית – תכנית הטיול</a></li>
+      <li><a class="site-drawer__link" href="index.html#prep-title">דגשים לפני שיוצאים</a></li>
+      <li><a class="site-drawer__link" href="index.html#plan-title">תכנית לפי ימים</a></li>
+      <li><a class="site-drawer__link" href="trip-day.html?day=1">עמוד מפורט לכל יום</a></li>
+      <li><a class="site-drawer__link" href="index.html#tasks-title">משימות להזמנה מראש</a></li>
+      <li><a class="site-drawer__link" href="kosher-budapest.html">כשרות בבודפשט</a></li>
+      <li><a class="site-drawer__link" href="kosher-budapest.html#stores-title">סופרים כשרים</a></li>
+      <li><a class="site-drawer__link" href="kosher-budapest.html#eateries-title">מסעדות ומאפיות</a></li>
+      <li><a class="site-drawer__link" href="synagogues-budapest.html">בתי כנסת בבודפשט (שבת)</a></li>
+      <li><a class="site-drawer__link site-drawer__link--current" href="hotels.html" aria-current="page">מקומות לינה</a></li>
+      <li><a class="site-drawer__link" href="packing.html">רשימת אריזה</a></li>
+    </ul>
+  </nav>
+
+  <header
+    class="hero hero--compact"
+    role="banner"
+    style="--hero-image: url('https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&amp;fit=crop&amp;w=1600&amp;q=80');"
+  >
+    <div class="hero__bg" aria-hidden="true"></div>
+    <div class="hero__overlay" aria-hidden="true"></div>
+    <div class="hero__inner">
+      <p class="hero__kicker">סלובניה · קרואטיה · הונגריה</p>
+      <h1 class="hero__title">מקומות לינה</h1>
+      <p class="hero__tagline">תאריכים, כתובות, קשר והנחיות לפי אישורי ההזמנה</p>
+      <a class="hero__cta hero__cta--ghost" href="index.html">חזרה לתכנית הטיול</a>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <nav class="main-nav" aria-label="ניווט ראשי">
+      <a class="main-nav__link" href="index.html">תכנית הטיול</a>
+      <a class="main-nav__link" href="trip-day.html?day=1">ימים בטיול</a>
+      <a class="main-nav__link" href="kosher-budapest.html">כשרות בבודפשט</a>
+      <a class="main-nav__link" href="synagogues-budapest.html">בתי כנסת</a>
+      <a class="main-nav__link main-nav__link--current" href="hotels.html" aria-current="page">מקומות לינה</a>
+      <a class="main-nav__link" href="packing.html">רשימת אריזה</a>
+    </nav>
+
+    <p class="page-lede">
+      הפרטים מבוססים על אישורי <strong>Booking.com</strong>, <strong>Airbnb</strong> והודעות המארחים (פברואר 2026).
+      לפני נסיעה כדאי לאמת שעות צ׳ק־אין ומספרי טלפון באפליקציה או במייל העדכני.
+    </p>
+
+    <section class="kosher-section" aria-labelledby="bled-title">
+      <h2 id="bled-title" class="section-heading">בלד, סלובניה</h2>
+
+      <article class="kosher-card">
+        <div class="kosher-card__media">
+          <img
+            class="kosher-card__img"
+            src="https://images.unsplash.com/photo-1596436889106-bd833499e8f6?auto=format&amp;fit=crop&amp;w=320&amp;h=320&amp;q=80"
+            width="160"
+            height="160"
+            alt="נוף אגם בלד"
+            loading="lazy"
+          />
+        </div>
+        <div class="kosher-card__body">
+          <div class="kosher-card__head">
+            <h3 class="kosher-card__title">Vila Savica Bled</h3>
+            <span class="kosher-badge kosher-badge--info">Booking</span>
+          </div>
+          <p class="kosher-card__meta">
+            <strong>תאריכים:</strong> כניסה יום ראשון <strong>31 במאי 2026</strong> · יציאה יום רביעי <strong>3 ביוני 2026</strong> (3 לילות).
+          </p>
+          <p class="kosher-card__meta">
+            <strong>כתובת:</strong> Kolodvorska cesta 11, 4260 Bled, Slovenia
+            <a
+              class="kosher-card__link"
+              href="https://www.google.com/maps/search/?api=1&amp;query=Kolodvorska+cesta+11,+Bled,+Slovenia"
+              rel="noopener noreferrer"
+              target="_blank"
+              >מפה</a
+            >
+          </p>
+          <p class="kosher-card__meta">
+            <strong>מספר הזמנה:</strong> 5975155857
+            <a
+              class="kosher-card__link"
+              href="https://secure.booking.com/myreservations.html?bn=5975155857"
+              rel="noopener noreferrer"
+              target="_blank"
+              >פתיחה ב-Booking</a
+            >
+          </p>
+          <p class="kosher-card__meta">
+            <strong>קשר:</strong> דרך הודעות במסך ההזמנה ב-Booking או במייל מהמקום. (מספר טלפון יתקבל לעיתים קרובות מהמארח.)
+          </p>
+          <p class="kosher-card__food">
+            <strong>הנחיות מיוחדות:</strong> שבוע לפני ההגעה יישלח מייל עם בקשה לפרטי אורחים לצ׳ק־אין; אחרי מילוי הטופס תישלחנה הוראות לאיסוף מפתחות (צ׳ק־אין / צ׳ק־אאוט עצמי).
+            מדריך והטבות לבלד: הרשמה ב־
+            <a href="https://www.agenia.si/en/navodila/vodic-bled" rel="noopener noreferrer" target="_blank">agenia.si – מדריך בלד</a>.
+            לפי אתר המלון: צ׳ק־אין בדרך־כלל <strong>15:00–22:00</strong>, צ׳ק־אאוט <strong>06:00–10:00</strong> (לאמת שוב בהזמנה).
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <section class="kosher-section" aria-labelledby="plitvice-title">
+      <h2 id="plitvice-title" class="section-heading">אזור פליטביצה, קרואטיה</h2>
+
+      <article class="kosher-card">
+        <div class="kosher-card__media">
+          <img
+            class="kosher-card__img"
+            src="https://images.unsplash.com/photo-1504700610630-1e2edac3e0e5?auto=format&amp;fit=crop&amp;w=320&amp;h=320&amp;q=80"
+            width="160"
+            height="160"
+            alt="יער ומים"
+            loading="lazy"
+          />
+        </div>
+        <div class="kosher-card__body">
+          <div class="kosher-card__head">
+            <h3 class="kosher-card__title">Apartments and Rooms Krizmanic</h3>
+            <span class="kosher-badge kosher-badge--info">Booking</span>
+          </div>
+          <p class="kosher-card__meta">
+            <strong>תאריכים:</strong> כניסה יום רביעי <strong>3 ביוני 2026</strong> · יציאה יום חמישי <strong>4 ביוני 2026</strong> (לילה אחד).
+          </p>
+          <p class="kosher-card__meta">
+            <strong>כתובת:</strong> Smoljanac 63, 53231 Smoljanac, Croatia (כ־3.5 ק״מ מפארק אגמי פליטביצה)
+            <a
+              class="kosher-card__link"
+              href="https://www.google.com/maps/search/?api=1&amp;query=Smoljanac+63,+Plitvice,+Croatia"
+              rel="noopener noreferrer"
+              target="_blank"
+              >מפה</a
+            >
+          </p>
+          <p class="kosher-card__meta">
+            <strong>מספר הזמנה:</strong> 6946597788
+            <a
+              class="kosher-card__link"
+              href="https://secure.booking.com/myreservations.html?bn=6946597788"
+              rel="noopener noreferrer"
+              target="_blank"
+              >פתיחה ב-Booking</a
+            >
+          </p>
+          <p class="kosher-card__meta">
+            <strong>טלפון:</strong> מופיע בדף ההזמנה ב-Booking ובאפליקציה תחת «התקשר למקום האירוח» (לאימות לפני הגעה).
+          </p>
+          <p class="kosher-card__food">
+            <strong>הנחיות מיוחדות:</strong> לילה קצר בין בלד לבודפשט – לאשר שעת צ׳ק־אין מראש אם מגיעים מאוחר מהגבול.
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <section class="kosher-section" aria-labelledby="budapest-title">
+      <h2 id="budapest-title" class="section-heading">בודפשט, הונגריה</h2>
+
+      <article class="kosher-card">
+        <div class="kosher-card__media">
+          <img
+            class="kosher-card__img"
+            src="https://images.unsplash.com/photo-1541342423680-622c5b6f8200?auto=format&amp;fit=crop&amp;w=320&amp;h=320&amp;q=80"
+            width="160"
+            height="160"
+            alt="בודפשט"
+            loading="lazy"
+          />
+        </div>
+        <div class="kosher-card__body">
+          <div class="kosher-card__head">
+            <h3 class="kosher-card__title">דירה (Airbnb) – מארח Richard</h3>
+            <span class="kosher-badge kosher-badge--store">Airbnb</span>
+          </div>
+          <p class="kosher-card__meta">
+            <strong>תאריכים:</strong> כניסה יום חמישי <strong>4 ביוני 2026</strong> · יציאה יום שלישי <strong>9 ביוני 2026</strong> (5 לילות).
+          </p>
+          <p class="kosher-card__meta">
+            <strong>כתובת:</strong> Nagy Diófa utca 16, 1072 Budapest, Hungary
+            <a
+              class="kosher-card__link"
+              href="https://www.google.com/maps/search/?api=1&amp;query=Nagy+Diofa+utca+16,+1072+Budapest"
+              rel="noopener noreferrer"
+              target="_blank"
+              >מפה</a
+            >
+          </p>
+          <p class="kosher-card__meta">
+            <strong>טלפון מארח:</strong>
+            <a href="tel:+36202645114">+36 20 264 5114</a>
+          </p>
+          <p class="kosher-card__meta">
+            <a
+              class="kosher-card__link"
+              href="https://www.airbnb.com/rooms/680937545121703099"
+              rel="noopener noreferrer"
+              target="_blank"
+              >דף הרישום ב-Airbnb</a
+            >
+          </p>
+          <p class="kosher-card__food">
+            <strong>הנחיות מיוחדות:</strong> לעקוב אחרי הודעות Airbnb ובית המארח (כללי הבית, זמני כניסה וקוד דלת אם יש).
+            הרובע 1072 – קרוב לתחבורה ולרובע 7 (כשרות) לפי תכנית הטיול באתר.
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <p class="kosher-footnote">
+      עדכון אחרון לפי קבצי הדוא״ל שהועברו. אם משהו השתנה בהזמנה – עדכנו כאן או בתכנית היום בדף הבית.
+    </p>
+
+    <footer class="site-footer">
+      <a class="site-footer__top" href="#top">חזרה למעלה ↑</a>
+      <p class="site-footer__line">אתר פרטי למשפחה בן אדמון · מקומות לינה</p>
+    </footer>
+  </div>
+  <script src="menu.js" defer></script>
+</body>
+</html>
