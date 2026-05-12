@@ -754,10 +754,18 @@ app.use(function (err, req, res, next) {
 var _prepared = false;
 async function prepare() {
   if (_prepared) return;
-  _prepared = true;
-  await ensureSeed();
-  await ensureTripDayMealsSeed();
+  /* Trip tables first so /api/tasks works even if packing seed fails (e.g. grants only on trip_*). */
   await ensureTripTasksSeed();
+  await ensureTripDayMealsSeed();
+  try {
+    await ensureSeed();
+  } catch (packErr) {
+    console.error(
+      "[budapest-api] ensureSeed (packing) failed — trip tasks/meals are ready; fix packing DB or run schema.sql:",
+      packErr && packErr.message ? packErr.message : packErr
+    );
+  }
+  _prepared = true;
 }
 
 module.exports = { app, prepare, PORT, logPackingPermissionHelp, databaseUrlHostHint };
