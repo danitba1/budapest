@@ -45,4 +45,41 @@ function getDatabaseUserFromUrl() {
   }
 }
 
-module.exports = { sanitizeDatabaseUrl, getPoolOptions, getDatabaseUserFromUrl };
+/**
+ * For Vercel Runtime Logs only — never logs password or full connection string.
+ * @param {string} [label] prefix e.g. "[api/server] "
+ */
+function logDatabaseEnvDiagnostics(label) {
+  label = label || "[budapest-db] ";
+  var raw = process.env.DATABASE_URL;
+  var has = !!(raw && typeof raw === "string" && raw.length > 0);
+  console.log(label + "DATABASE_URL present: " + has + (has ? " (char length " + raw.length + ")" : ""));
+  if (!has) return;
+  try {
+    var normalized = sanitizeDatabaseUrl(raw).replace(/^postgres(ql)?:/i, "https:");
+    var u = new URL(normalized);
+    var user = u.username ? decodeURIComponent(u.username.replace(/\+/g, " ")) : "";
+    var sslm = u.searchParams.get("sslmode") || "";
+    console.log(
+      label +
+        "DATABASE_URL parsed host=" +
+        (u.hostname || "?") +
+        " user=" +
+        (user || "?") +
+        (sslm ? " sslmode=" + sslm : "")
+    );
+  } catch (e) {
+    console.log(label + "DATABASE_URL could not be parsed as URL (check Neon string): " + (e && e.message ? e.message : e));
+  }
+  console.log(
+    label +
+      "runtime VERCEL=" +
+      String(!!process.env.VERCEL) +
+      " region=" +
+      (process.env.VERCEL_REGION || "(n/a)") +
+      " deployment=" +
+      (process.env.VERCEL_DEPLOYMENT_ID ? "set" : "(n/a)")
+  );
+}
+
+module.exports = { sanitizeDatabaseUrl, getPoolOptions, getDatabaseUserFromUrl, logDatabaseEnvDiagnostics };

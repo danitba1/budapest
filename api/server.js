@@ -36,8 +36,20 @@ module.exports = async function handler(req, res) {
   try {
     if (!handlerPromise) {
       handlerPromise = (async function () {
+        try {
+          var cfg = require("../server/connection-config");
+          if (typeof cfg.logDatabaseEnvDiagnostics === "function") {
+            cfg.logDatabaseEnvDiagnostics("[api/server] ");
+          }
+        } catch (logErr) {
+          console.error("[api/server] connection-config load for diagnostics", logErr);
+        }
+        var tInit = Date.now();
         var mod = require("../server/app");
+        console.log("[api/server] server/app loaded in " + (Date.now() - tInit) + "ms");
+        tInit = Date.now();
         await mod.prepare();
+        console.log("[api/server] prepare() finished in " + (Date.now() - tInit) + "ms");
         return serverless(mod.app);
       })();
     }

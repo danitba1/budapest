@@ -210,6 +210,21 @@
     }
   }
 
+  /** טקסט עזר אחרי שגיאת רשת/API — 504 אינו אומר שחסר DATABASE_URL. */
+  function syncFailureExtraHint(reason) {
+    var r = String(reason || "").toLowerCase();
+    if (/\b504\b|\b502\b|gateway|time\s*out|timed out|timeout|econnaborted|fetch failed/i.test(r)) {
+      return (
+        "504/timeout = לרוב מגבלת זמן של פונקציית Vercel או הקמת Neon ממצב שינה — לא בהכרח משתנה סביבה חסר. " +
+        "נסו רענון; ב־Vercel → Deployment → Functions → Logs; בדיקה: /api/health."
+      );
+    }
+    if (/missing\s+database_url|database_url.*required|no\s+database_url/i.test(r)) {
+      return "אז כדאי לבדוק ב־Vercel: Settings → Environment Variables → DATABASE_URL (Neon) ל־Production, ואז Redeploy.";
+    }
+    return "אם נמשך: Vercel → Functions → Logs; בדיקה: /api/health.";
+  }
+
   async function hydrateFromServer() {
     remoteWritesEnabled = false;
     syncLineText = "";
@@ -257,10 +272,9 @@
         syncLineText =
           "בעיית הרשאה ל־/api/tasks (נדיר). רעננו את הדף; אם נמשך — בדקו את השרת.";
       } else {
+        var extraHint = syncFailureExtraHint(reason);
         syncLineText =
-          "אין גישה לשרת — המשימות נשמרות רק בדפדפן זה. פרטים: " +
-          reason +
-          " · ב־Vercel: Settings → Environment Variables → DATABASE_URL (מחרוזת Neon), ואז Redeploy.";
+          "אין גישה לשרת — המשימות נשמרות רק בדפדפן זה. פרטים: " + reason + " · " + extraHint;
       }
     }
   }

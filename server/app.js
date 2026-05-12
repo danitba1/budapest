@@ -754,11 +754,18 @@ app.use(function (err, req, res, next) {
 var _prepared = false;
 async function prepare() {
   if (_prepared) return;
-  /* Packing uses ensurePackingReady on /api/pack only — do not run ensureSeed here or Vercel cold
-   * starts (often 10s cap) time out before /api/tasks while creating categories + default items. */
+  /* Packing uses ensurePackingReady on /api/pack only — avoid heavy work here (Vercel wall-clock). */
+  var t0 = Date.now();
+  function lap(tag) {
+    console.log("[budapest-api] prepare " + tag + " +" + (Date.now() - t0) + "ms");
+  }
+  lap("start");
   await ensureTripTasksSeed();
+  lap("after trip_tasks seed");
   await ensureTripDayMealsSeed();
+  lap("after trip_day_meals seed");
   _prepared = true;
+  lap("complete totalMs=" + (Date.now() - t0));
 }
 
 module.exports = { app, prepare, PORT, logPackingPermissionHelp, databaseUrlHostHint };
