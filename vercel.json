@@ -16,11 +16,11 @@
   "functions": {
     "api/health.js": {
       "maxDuration": 60,
-      "includeFiles": ["server/connection-config.js"]
+      "includeFiles": "server/connection-config.js"
     },
     "api/tasks.js": {
       "maxDuration": 60,
-      "includeFiles": ["server/connection-config.js", "server/trip-tasks-store.js"]
+      "includeFiles": "server/trip-tasks-store.js"
     },
     "api/server.js": {
       "maxDuration": 60,
